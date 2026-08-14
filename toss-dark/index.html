@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>에스코트 — 토스 스타일 · 다크 (데모)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* ═══ THEME (dark) ═══ */
+:root{
+  --bg:#101013; --card:#17171c; --card2:#202027; --txt:#e5e8eb; --sub:#b0b8c1; --dim:#6b7684;
+  --blue:#3182f6; --blue-press:#1b64da; --blue-soft:rgba(49,130,246,.16); --blue-txt:#6ba6ff;
+  --red:#ff6b75; --red-soft:rgba(240,68,82,.14); --green:#05c072; --green-soft:rgba(0,166,97,.14);
+  --shadow:none; --dimmer:rgba(0,0,0,.65); --chip:#24242c;
+}
+/* ═══ /THEME ═══ */
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;color:var(--txt);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 12px;
+  -webkit-font-smoothing:antialiased;letter-spacing:-.02em}
+.frame{width:100%;max-width:400px;background:var(--bg);border-radius:34px;overflow:hidden;position:relative;
+  min-height:820px;display:flex;flex-direction:column;box-shadow:0 30px 90px rgba(0,0,0,.8)}
+header{padding:20px 22px 12px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:19px;font-weight:800;display:flex;align-items:center;gap:7px}
+.logo .sym{width:30px;height:30px;border-radius:10px;background:var(--blue);color:#fff;display:flex;
+  align-items:center;justify-content:center;font-size:15px}
+.seg{display:flex;background:var(--chip);border-radius:12px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;color:var(--dim);font-family:inherit;font-size:12px;font-weight:700;
+  padding:8px 13px;border-radius:10px;cursor:pointer;transition:.18s;letter-spacing:-.02em}
+.seg button.on{background:#2e2e38;color:var(--txt)}
+.demo-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;
+  font-size:9px;font-weight:800;letter-spacing:.18em;padding:3px 14px;border-radius:0 0 8px 8px;z-index:50}
+main{flex:1;overflow-y:auto;padding:8px 18px 100px;scrollbar-width:none}
+main::-webkit-scrollbar{display:none}
+.screen{display:none;animation:fade .3s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* 토스식 안내 배너 */
+.banner{display:flex;gap:12px;align-items:center;background:var(--blue-soft);border-radius:18px;padding:15px 16px;margin-bottom:14px}
+.banner .ic{font-size:24px}
+.banner p{font-size:12.5px;line-height:1.55;color:var(--blue-txt);font-weight:600}
+/* 섹션 타이틀 */
+h2.sec{font-size:14px;font-weight:800;margin:24px 4px 10px;color:var(--txt)}
+h2.sec small{font-weight:600;color:var(--dim);font-size:11.5px;margin-left:6px}
+/* 프로필 카드 */
+.pcard{background:var(--card);border-radius:24px;overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow)}
+.pcard .top{display:flex;gap:14px;padding:20px 20px 0;align-items:center}
+.avt{width:64px;height:64px;border-radius:22px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;font-weight:800;color:#fff;flex-shrink:0}
+.pcard .who b{font-size:17px;font-weight:800;display:block}
+.pcard .who span{font-size:12.5px;color:var(--dim);font-weight:500}
+.chips{display:flex;gap:6px;padding:12px 20px 0;flex-wrap:wrap}
+.chip{font-size:10.5px;font-weight:700;padding:5px 10px;border-radius:8px;background:var(--chip);color:var(--sub)}
+.chip.b{background:var(--blue-soft);color:var(--blue-txt)}
+.score-row{margin:14px 20px 0;background:var(--card2);border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center}
+.score-row .n{font-size:34px;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums;line-height:1}
+.score-row .n small{font-size:12px;color:var(--dim);font-weight:600}
+.score-row .d{font-size:12px;line-height:1.55;color:var(--sub)}
+.score-row .d b{color:var(--txt)}
+.timer{margin:10px 20px 0;display:flex;justify-content:space-between;align-items:center;
+  background:var(--red-soft);border-radius:14px;padding:12px 16px}
+.timer .l{font-size:12px;font-weight:700;color:var(--red)}
+.timer .c{font-size:16px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums}
+.pcard .acts{display:flex;gap:8px;padding:16px 20px 20px}
+.btn{flex:1;border:0;border-radius:14px;padding:15px 0;font-family:inherit;font-size:15px;font-weight:700;
+  cursor:pointer;transition:.12s;letter-spacing:-.02em}
+.btn:active{transform:scale(.97)}
+.btn.gray{background:var(--chip);color:var(--sub)}
+.btn.blue{background:var(--blue);color:#fff}
+.btn.blue:active{background:var(--blue-press)}
+.btn.wide{width:100%;flex:none}
+.free-tag{display:inline-block;margin:16px 20px 0;font-size:11px;font-weight:800;color:var(--blue-txt);
+  background:var(--blue-soft);padding:5px 11px;border-radius:8px}
+/* 토스식 리스트 */
+.list{background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.list .row{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;font-size:13.5px}
+.list .row+.row{border-top:1px solid var(--bg)}
+.list .row .l b{display:block;font-size:14px;font-weight:700}
+.list .row .l small{color:var(--dim);font-size:11.5px;font-weight:500}
+.list .row .r{font-weight:800;font-size:14.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.list .row .r.blue{color:var(--blue-txt)}
+.list .row .r.green{color:var(--green)}
+/* 여성: 수익 홈 (토스 홈 스타일) */
+.money-card{background:var(--card);border-radius:24px;padding:24px 22px;box-shadow:var(--shadow);margin-bottom:14px}
+.money-card .lab{font-size:12.5px;color:var(--dim);font-weight:600}
+.money-card .amt{font-size:36px;font-weight:800;margin:6px 0 4px;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.money-card .up{font-size:12px;color:var(--green);font-weight:700}
+.money-card .btnrow{display:flex;gap:8px;margin-top:18px}
+.money-card .btnrow .btn{padding:13px 0;font-size:13.5px}
+.tier{background:var(--card);border-radius:24px;padding:22px;box-shadow:var(--shadow);margin-bottom:14px}
+.tier .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.tier .head b{font-size:16px;font-weight:800}
+.tier .head b em{font-style:normal;color:var(--blue-txt)}
+.tier .head span{font-size:11.5px;color:var(--dim);font-weight:600}
+.tbar{height:8px;background:var(--chip);border-radius:99px;overflow:hidden}
+.tbar i{display:block;height:100%;width:64%;background:var(--blue);border-radius:99px}
+.tsteps{display:flex;justify-content:space-between;margin-top:8px;font-size:10.5px;color:var(--dim);font-weight:700}
+.tsteps .cur{color:var(--blue-txt)}
+.tier p.perk{margin-top:12px;font-size:12px;line-height:1.65;color:var(--sub)}
+.tier p.perk b{color:var(--txt)}
+.code-card{background:linear-gradient(135deg,var(--blue),#5c9dff);border-radius:24px;padding:22px;margin-bottom:14px;color:#fff}
+.code-card .lab{font-size:11px;font-weight:700;opacity:.85;letter-spacing:.06em}
+.code-card .cd{font-size:26px;font-weight:800;letter-spacing:.14em;margin:8px 0 14px}
+.code-card .btnrow{display:flex;gap:8px}
+.code-card .btn{background:rgba(255,255,255,.2);color:#fff;padding:12px 0;font-size:13px}
+.code-card .btn.wh{background:#fff;color:var(--blue-txt)}
+.code-card p.hint{margin-top:12px;font-size:11px;line-height:1.6;opacity:.9;font-weight:500}
+nav{position:absolute;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bg);
+  display:flex;padding:8px 8px calc(12px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border:0;color:var(--dim);font-family:inherit;font-size:10px;font-weight:700;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;letter-spacing:-.02em}
+nav button .ic{font-size:20px;filter:grayscale(1);opacity:.45;transition:.2s}
+nav button.on{color:var(--txt)}
+nav button.on .ic{filter:none;opacity:1}
+/* 바텀시트 (토스식) */
+.sheet-bg{position:absolute;inset:0;background:var(--dimmer);z-index:100;display:none;align-items:flex-end}
+.sheet-bg.on{display:flex}
+.sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;padding:12px 22px 30px;animation:up .28s cubic-bezier(.2,.8,.3,1)}
+@keyframes up{from{transform:translateY(70px);opacity:0}to{transform:none;opacity:1}}
+.sheet .grab{width:38px;height:4px;border-radius:99px;background:var(--chip);margin:0 auto 18px}
+.sheet h3{font-size:19px;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
+.sheet p.d{font-size:13px;color:var(--dim);line-height:1.65;margin-bottom:16px;font-weight:500}
+.sheet p.d b{color:var(--txt)}
+.pay-row{display:flex;justify-content:space-between;padding:13px 2px;font-size:13.5px;color:var(--sub);font-weight:600}
+.pay-row+.pay-row{border-top:1px solid var(--bg)}
+.pay-row b{font-size:16px;color:var(--txt);font-variant-numeric:tabular-nums}
+.pay-row .ok{color:var(--green);font-weight:700}
+.sheet .btn{margin-top:16px}
+.sheet .cancel{display:block;width:100%;text-align:center;margin-top:12px;color:var(--dim);font-size:13px;font-weight:600;
+  background:none;border:0;cursor:pointer;font-family:inherit;padding:6px 0}
+.success{text-align:center;padding:8px 0}
+.success .big{width:72px;height:72px;border-radius:50%;background:var(--blue-soft);display:flex;align-items:center;
+  justify-content:center;font-size:34px;margin:6px auto 16px}
+#toast{position:absolute;bottom:100px;left:50%;transform:translateX(-50%);background:var(--txt);color:var(--card);
+  font-size:12.5px;font-weight:600;padding:12px 18px;border-radius:14px;opacity:0;transition:.3s;z-index:200;
+  white-space:nowrap;max-width:90%;text-align:center;pointer-events:none;letter-spacing:-.02em}
+footer.note{padding:14px 22px;font-size:9.5px;color:var(--dim);line-height:1.6;opacity:.8}
+footer.note a{color:var(--blue-txt);text-decoration:none;font-weight:700}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="demo-badge">DEMO</div>
+  <header>
+    <div class="logo"><span class="sym">🧧</span>에스코트</div>
+    <div class="seg">
+      <button id="tg-m" class="on" onclick="setMode('m')">남성</button>
+      <button id="tg-f" onclick="setMode('f')">여성</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ══ 남성 ══ -->
+    <section class="screen on" id="scr-m">
+      <div class="banner"><span class="ic">🎁</span><p>채널 추가 기념, 오늘의 인연 카드 <b id="free-left">2</b>장이 무료예요.<br>카드는 48시간 안에 결정해야 해요.</p></div>
+      <div id="card-stack"></div>
+      <h2 class="sec">이용 요금 <small>부담 없이 시작하고, 확신에만 결제해요</small></h2>
+      <div class="list">
+        <div class="row"><div class="l"><b>웰컴 카드 3장</b><small>가입 + 채널 추가 시</small></div><div class="r blue">무료</div></div>
+        <div class="row"><div class="l"><b>카드 열람권</b><small>새 인연 카드 1장</small></div><div class="r">50,000원</div></div>
+        <div class="row"><div class="l"><b>연락처 교환권</b><small>상대 거절 시 100% 환불</small></div><div class="r">350,000원</div></div>
+        <div class="row"><div class="l"><b>PASS 멤버십</b><small>월 카드 8장 + 우선 배정</small></div><div class="r">월 290,000원</div></div>
+      </div>
+    </section>
+
+    <!-- ══ 여성 ══ -->
+    <section class="screen" id="scr-f">
+      <div class="money-card">
+        <div class="lab">8월에 이만큼 모았어요</div>
+        <div class="amt">427,000원</div>
+        <div class="up">지난달보다 +180,000원</div>
+        <div class="btnrow">
+          <button class="btn gray" onclick="toast('정산은 매주 화요일, 등록 계좌로 자동 입금돼요 (데모)')">정산 내역</button>
+          <button class="btn blue" onclick="copyCode()">친구 초대하고 더 모으기</button>
+        </div>
+      </div>
+
+      <div class="list" style="margin-bottom:14px">
+        <div class="row"><div class="l"><b>매칭 리워드</b><small>연락처 교환 성사</small></div><div class="r">260,000원</div></div>
+        <div class="row"><div class="l"><b>후기 리워드</b><small>상호 후기 완료</small></div><div class="r">90,000원</div></div>
+        <div class="row"><div class="l"><b>추천 리워드</b><small>친구 매출의 8%</small></div><div class="r green">77,000원</div></div>
+      </div>
+
+      <div class="tier">
+        <div class="head"><b>👑 LADY <em>· 요율 8%</em></b><span>MADAM까지 친구 4명</span></div>
+        <div class="tbar"><i></i></div>
+        <div class="tsteps"><span>🌹 ROSE 5%</span><span class="cur">👑 LADY 8%</span><span>💎 MADAM 12%</span></div>
+        <p class="perk">지금 혜택: 친구 매출 <b>8% 평생 적립</b> · 월 스타일링비 <b>10만원</b> · 멤버스 파티<br>MADAM이 되면: <b>12%</b> + 전담 매니저 + 카드 우선 배정 + VIP 트립</p>
+      </div>
+
+      <div class="code-card">
+        <div class="lab">내 초대 코드</div>
+        <div class="cd">ESC-YOONA</div>
+        <div class="btnrow">
+          <button class="btn" onclick="copyCode()">복사</button>
+          <button class="btn wh" onclick="toast('카카오톡 공유 (데모) — 실서비스는 딥링크 자동 입력')">카카오톡으로 보내기</button>
+        </div>
+        <p class="hint">친구가 이 코드로 가입하면 친구도 축하금 3만원, 나는 친구가 결제할 때마다 8%씩 평생 적립돼요.</p>
+      </div>
+
+      <h2 class="sec">내 친구들 <small>3명 활동 중</small></h2>
+      <div class="list">
+        <div class="row"><div class="l"><b>서○아</b><small>7월 가입 · 이번 달 매칭 1건</small></div><div class="r green">+28,000원</div></div>
+        <div class="row"><div class="l"><b>민○</b><small>6월 가입 · 카드 인기 상위 10%</small></div><div class="r green">+42,000원</div></div>
+        <div class="row"><div class="l"><b>하○은</b><small>8월 가입 · 심사 통과</small></div><div class="r green">+10,000원</div></div>
+      </div>
+    </section>
+  </main>
+
+  <nav id="nav-m">
+    <button class="on"><span class="ic">🧧</span>오늘의 카드</button>
+    <button onclick="toast('데모에서는 오늘의 카드만 제공돼요')"><span class="ic">💬</span>매니저</button>
+    <button onclick="toast('데모에서는 오늘의 카드만 제공돼요')"><span class="ic">👤</span>전체</button>
+  </nav>
+  <nav id="nav-f" style="display:none">
+    <button class="on"><span class="ic">💰</span>내 수익</button>
+    <button onclick="copyCode()"><span class="ic">🔗</span>초대</button>
+    <button onclick="toast('데모에서는 수익 화면만 제공돼요')"><span class="ic">👤</span>전체</button>
+  </nav>
+
+  <!-- 바텀시트: 결제 -->
+  <div class="sheet-bg" id="sh-pay"><div class="sheet">
+    <div class="grab"></div>
+    <h3>연락처를 교환할까요?</h3>
+    <p class="d">상대방도 수락하면 매니저가 <b>카카오톡</b>으로 서로의 연락처를 전달해요. 상대가 거절하면 <b>전액 자동 환불</b>돼요.</p>
+    <div class="pay-row"><span>연락처 교환권</span><b>350,000원</b></div>
+    <div class="pay-row"><span>상호 수락 실패 시</span><span class="ok">100% 자동 환불</span></div>
+    <button class="btn blue wide" onclick="paid()">350,000원 결제하기</button>
+    <button class="cancel" onclick="closeSheet()">다음에 할게요</button>
+  </div></div>
+
+  <!-- 바텀시트: 완료 -->
+  <div class="sheet-bg" id="sh-done"><div class="sheet success">
+    <div class="grab"></div>
+    <div class="big">💌</div>
+    <h3>신청을 보냈어요</h3>
+    <p class="d">상대방이 수락하면 <b>24시간 안에</b> 매니저가 카카오톡으로<br>연락처와 첫 만남 가이드를 보내드려요.</p>
+    <button class="btn blue wide" onclick="closeSheet()">확인</button>
+  </div></div>
+
+  <!-- 바텀시트: 열람권 -->
+  <div class="sheet-bg" id="sh-open"><div class="sheet">
+    <div class="grab"></div>
+    <h3>새 카드를 열어볼까요?</h3>
+    <p class="d">무료 웰컴 카드를 모두 사용했어요. 새 인연 카드는 열람권으로 열 수 있어요.</p>
+    <div class="pay-row"><span>카드 열람권 1장</span><b>50,000원</b></div>
+    <button class="btn blue wide" onclick="openPaidCard()">50,000원 결제하고 열람</button>
+    <button class="cancel" onclick="closeSheet()">다음에 할게요</button>
+  </div></div>
+
+  <div id="toast"></div>
+  <footer class="note">기획 검증용 데모 — 모든 데이터는 가상이며 실제 거래가 없어요. ESCORT는 워킹네임. ·
+    <a href="../toss-white/">토스 화이트</a> · <a href="../">럭셔리 다크</a> · <a href="../white/">럭셔리 화이트</a> · <a href="../raya/">RAYA</a></footer>
+</div>
+
+<script>
+const CARDS = [
+  {ini:"윤", name:"윤○영", age:29, job:"승무원", area:"반포", score:92, h:46, av:"linear-gradient(135deg,#7c5cff,#b18cff)",
+   desc:"당신의 <b>무토(戊土)</b>와 상대의 <b>계수(癸水)</b>가 무계합 — 명리에서 가장 강한 부부 합이에요.",
+   badges:["✓ 지인 추천 2인","✓ 신원 인증","✓ 라이프스타일 검증"]},
+  {ini:"서", name:"서○진", age:27, job:"피부과 코디네이터", area:"청담", score:88, h:41, av:"linear-gradient(135deg,#3182f6,#6fa8ff)",
+   desc:"상대의 <b>목(木) 일간</b>이 당신의 화(火)를 살리는 목생화 상생 — 올해 인연운이 겹치는 해예요.",
+   badges:["✓ 지인 추천 2인","✓ 신원 인증"]},
+  {ini:"정", name:"정○원", age:31, job:"갤러리스트", area:"한남", score:85, h:38, av:"linear-gradient(135deg,#f0704a,#ffa26b)",
+   desc:"두 사람 모두 배우자궁에 <b>도화(桃花)</b> — 첫 만남 호감도가 높은 조합이에요.",
+   badges:["✓ 지인 추천 2인","✓ 신원 인증","✓ VIP 파티 참석"]}
+];
+let freeLeft = 2, idx = 0;
+function renderCard(){
+  const c = CARDS[idx % CARDS.length];
+  const deadline = Date.now() + c.h*3600*1000;
+  document.getElementById("card-stack").innerHTML = `
+  <div class="pcard">
+    <span class="free-tag">${freeLeft>0?`무료 카드 ${freeLeft}장 남음`:`열람권 사용 중`}</span>
+    <div class="top">
+      <div class="avt" style="background:${c.av}">${c.ini}</div>
+      <div class="who"><b>${c.name}</b><span>${c.age}세 · ${c.job} · ${c.area}</span></div>
+    </div>
+    <div class="chips">${c.badges.map(b=>`<span class="chip b">${b}</span>`).join("")}</div>
+    <div class="score-row">
+      <div class="n">${c.score}<small>점</small></div>
+      <div class="d">${c.desc}</div>
+    </div>
+    <div class="timer"><span class="l">⏳ 결정까지 남은 시간</span><span class="c" id="clock">--:--:--</span></div>
+    <div class="acts">
+      <button class="btn gray" onclick="nextCard(false)">넘기기</button>
+      <button class="btn blue" onclick="show('sh-pay')">연락처 교환하기</button>
+    </div>
+  </div>`;
+  clearInterval(window._tick);
+  window._tick = setInterval(()=>{
+    let s = Math.max(0, Math.floor((deadline-Date.now())/1000));
+    const h=String(Math.floor(s/3600)).padStart(2,"0"),m=String(Math.floor(s%3600/60)).padStart(2,"0"),ss=String(s%60).padStart(2,"0");
+    const el=document.getElementById("clock"); if(el) el.textContent=`${h}:${m}:${ss}`;
+  },1000);
+}
+function nextCard(paid){
+  idx++;
+  if(!paid && freeLeft>0){ freeLeft--; document.getElementById("free-left").textContent=freeLeft; renderCard(); toast("다음 카드를 무료로 열었어요"); }
+  else if(!paid){ show("sh-open"); }
+  else { renderCard(); }
+}
+function openPaidCard(){ closeSheet(); renderCard(); toast("열람권 결제 완료 (데모) — 새 카드가 도착했어요"); }
+function paid(){ closeSheet(); show("sh-done"); }
+function show(id){ document.getElementById(id).classList.add("on"); }
+function closeSheet(){ document.querySelectorAll(".sheet-bg").forEach(m=>m.classList.remove("on")); }
+function setMode(m){
+  document.getElementById("tg-m").classList.toggle("on", m==="m");
+  document.getElementById("tg-f").classList.toggle("on", m==="f");
+  document.getElementById("scr-m").classList.toggle("on", m==="m");
+  document.getElementById("scr-f").classList.toggle("on", m==="f");
+  document.getElementById("nav-m").style.display = m==="m" ? "flex":"none";
+  document.getElementById("nav-f").style.display = m==="f" ? "flex":"none";
+  document.getElementById("main").scrollTop = 0;
+}
+function copyCode(){
+  navigator.clipboard?.writeText("ESC-YOONA").catch(()=>{});
+  toast("초대 코드를 복사했어요 — 친구가 가입하면 둘 다 리워드");
+}
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.style.opacity=1;
+  clearTimeout(window._tt); window._tt=setTimeout(()=>t.style.opacity=0, 2600);
+}
+renderCard();
+</script>
+</body>
+</html>
