@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>에스코트 — 배민 스타일 (데모)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--mint:#2ac1bc;--mint-deep:#1a9e99;--cream:#fffdf7;--txt:#2a2a2a;--sub:#666;--dim:#999;
+  --line:#f0ede4;--yellow:#ffdd66;--ok:#1a9e50;--red:#ff5b5b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#c8ebe9;font-family:"Pretendard Variable",Pretendard,'Apple SD Gothic Neo',sans-serif;color:var(--txt);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 12px;letter-spacing:-.01em}
+.frame{width:100%;max-width:400px;background:var(--cream);border-radius:32px;overflow:hidden;position:relative;
+  min-height:820px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(20,90,85,.35)}
+header{background:var(--mint);color:#fff;padding:22px 20px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:900;letter-spacing:-.03em}
+.logo small{display:block;font-size:10px;font-weight:600;opacity:.9;margin-top:3px;letter-spacing:0}
+.mode{display:flex;background:rgba(255,255,255,.25);border-radius:12px;padding:3px;gap:2px}
+.mode button{border:0;background:transparent;color:rgba(255,255,255,.8);font-family:inherit;font-size:11.5px;font-weight:800;
+  padding:8px 13px;border-radius:10px;cursor:pointer}
+.mode button.on{background:#fff;color:var(--mint-deep)}
+.demo-tag{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:40;font-size:8.5px;letter-spacing:.22em;color:rgba(255,255,255,.7);padding:5px 0;font-weight:800}
+main{flex:1;overflow-y:auto;padding:16px 16px 96px;scrollbar-width:none}
+main::-webkit-scrollbar{display:none}
+.screen{display:none;animation:fade .3s ease}.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* 위트 배너 */
+.witty{background:#fff;border:2px solid var(--txt);border-radius:18px;padding:15px 17px;margin-bottom:14px;
+  font-size:13px;line-height:1.6;font-weight:600;position:relative;box-shadow:4px 4px 0 rgba(42,42,42,.9)}
+.witty b{color:var(--mint-deep)}
+.witty .em{font-size:15px;font-weight:900}
+/* 카드 — 가게 카드 느낌 */
+.pcard{background:#fff;border:2px solid var(--txt);border-radius:20px;overflow:hidden;margin-bottom:16px;box-shadow:5px 5px 0 rgba(42,42,42,.9)}
+.photo{height:250px;position:relative;display:flex;align-items:flex-end}
+.photo .init{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:86px;font-weight:900;color:rgba(255,255,255,.35)}
+.photo .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(20,40,38,.8))}
+.photo .meta{position:relative;padding:14px 18px 12px;width:100%;color:#fff}
+.pname{font-size:20px;font-weight:900}
+.pname span{font-size:12.5px;font-weight:600;opacity:.9;margin-left:7px}
+.star{position:absolute;top:12px;right:12px;background:var(--yellow);border:2px solid var(--txt);border-radius:12px;
+  padding:6px 12px;font-size:14px;font-weight:900;color:var(--txt)}
+.free-pill{position:absolute;top:12px;left:12px;background:#fff;border:2px solid var(--txt);border-radius:12px;
+  padding:6px 11px;font-size:10.5px;font-weight:900}
+.pbody{padding:14px 18px 16px}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:10px;font-weight:800;padding:5px 9px;border-radius:8px;background:#e9f8f7;color:var(--mint-deep)}
+.saju{background:#fff8e0;border-radius:14px;padding:12px 14px;font-size:12px;line-height:1.65;color:#6b5d20;margin-bottom:10px}
+.saju b{color:#a5810a}
+.saju .n{font-size:22px;font-weight:900;color:var(--txt);margin-right:6px}
+.tmr{display:flex;justify-content:space-between;align-items:center;background:#ffefef;border-radius:12px;padding:10px 14px;margin-bottom:12px}
+.tmr .l{font-size:11px;font-weight:800;color:var(--red)}
+.tmr .c{font-size:15px;font-weight:900;color:var(--red);font-variant-numeric:tabular-nums}
+.acts{display:flex;gap:8px}
+.btn{flex:1;border:2px solid var(--txt);border-radius:14px;padding:14px 0;font-family:inherit;font-size:14px;font-weight:900;
+  cursor:pointer;transition:.1s;background:#fff;color:var(--txt)}
+.btn:active{transform:translate(2px,2px);box-shadow:none}
+.btn.mint{background:var(--mint);color:#fff;box-shadow:3px 3px 0 rgba(42,42,42,.9)}
+.btn.wide{width:100%;flex:none}
+h2.sec{font-size:14px;font-weight:900;margin:20px 4px 10px}
+.list{background:#fff;border:2px solid var(--txt);border-radius:18px;overflow:hidden;box-shadow:4px 4px 0 rgba(42,42,42,.9)}
+.lrow{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-size:13px}
+.lrow+.lrow{border-top:1.5px dashed var(--line)}
+.lrow .l b{display:block;font-weight:800}
+.lrow .l small{color:var(--dim);font-size:11px}
+.lrow .r{font-weight:900;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lrow .r.mint{color:var(--mint-deep)}
+.lrow .r.grn{color:var(--ok)}
+/* 여성 */
+.earn{background:var(--mint);border:2px solid var(--txt);border-radius:20px;padding:22px 20px;color:#fff;margin-bottom:16px;box-shadow:5px 5px 0 rgba(42,42,42,.9)}
+.earn .k{font-size:12px;font-weight:800;opacity:.95}
+.earn .amt{font-size:36px;font-weight:900;margin:6px 0 2px}
+.earn .up{font-size:11.5px;font-weight:800;color:#fff9c9}
+.earn .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.earn .cell{background:rgba(255,255,255,.2);border-radius:12px;padding:10px 8px;text-align:center}
+.earn .cell b{display:block;font-size:14px;font-weight:900}
+.earn .cell span{font-size:9.5px;opacity:.9;font-weight:700}
+.tier{background:#fff;border:2px solid var(--txt);border-radius:18px;padding:17px;margin-bottom:16px;box-shadow:4px 4px 0 rgba(42,42,42,.9)}
+.tier .head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.tier .head b{font-size:15px;font-weight:900}
+.tier .head span{font-size:10.5px;color:var(--dim);font-weight:700}
+.track{height:12px;background:var(--line);border-radius:99px;overflow:hidden;border:1.5px solid var(--txt)}
+.track i{display:block;height:100%;width:64%;background:repeating-linear-gradient(45deg,var(--mint),var(--mint) 8px,var(--mint-deep) 8px,var(--mint-deep) 16px)}
+.tsteps{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--dim);font-weight:800}
+.tsteps .cur{color:var(--mint-deep)}
+.tier p{margin-top:11px;font-size:12px;line-height:1.7;color:var(--sub);font-weight:600}
+.tier p b{color:var(--txt)}
+.code{background:var(--yellow);border:2px solid var(--txt);border-radius:18px;padding:18px;text-align:center;margin-bottom:16px;box-shadow:4px 4px 0 rgba(42,42,42,.9)}
+.code .k{font-size:10.5px;font-weight:900;letter-spacing:.1em}
+.code .cd{font-size:27px;font-weight:900;letter-spacing:.1em;margin:8px 0 13px}
+.code .btns{display:flex;gap:8px}
+.code .btn{padding:12px 0;font-size:12.5px}
+.code p{margin-top:12px;font-size:11px;font-weight:700;color:#6b5d20;line-height:1.65}
+/* 모달 */
+.mbg{position:absolute;inset:0;background:rgba(20,40,38,.5);z-index:100;display:none;align-items:flex-end}
+.mbg.on{display:flex}
+.sheet{background:#fff;border-radius:24px 24px 0 0;width:100%;padding:24px 20px 32px;animation:up .28s ease}
+@keyframes up{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{font-size:18px;font-weight:900;margin-bottom:6px}
+.sheet p.d{font-size:12.5px;color:var(--sub);line-height:1.7;margin-bottom:14px;font-weight:600}
+.prow{display:flex;justify-content:space-between;padding:12px 2px;font-size:13px;color:var(--sub);font-weight:600}
+.prow+.prow{border-top:1.5px dashed var(--line)}
+.prow b{font-size:15px;color:var(--txt);font-weight:900}
+.prow .ok{color:var(--ok);font-weight:800}
+.sheet .btn{margin-top:14px}
+.sheet .cancel{display:block;width:100%;text-align:center;margin-top:12px;color:var(--dim);font-size:12px;font-weight:700;background:none;border:0;cursor:pointer;font-family:inherit}
+nav{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--txt);display:flex;
+  padding:9px 8px calc(12px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border:0;color:var(--dim);font-family:inherit;font-size:10px;font-weight:800;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button .ic{font-size:19px;filter:grayscale(1);opacity:.5}
+nav button.on{color:var(--mint-deep)}
+nav button.on .ic{filter:none;opacity:1}
+#toast{position:absolute;bottom:92px;left:50%;transform:translateX(-50%);background:var(--txt);color:#fff;font-size:12px;
+  font-weight:700;padding:11px 18px;border-radius:14px;opacity:0;transition:.3s;z-index:200;white-space:nowrap;max-width:90%;text-align:center;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="demo-tag">DEMO · WORKING TITLE</div>
+  <header>
+    <div class="logo">에스코트<small>인연을 배달해드립니다 (진심)</small></div>
+    <div class="mode">
+      <button id="tg-m" class="on" onclick="setMode('m')">남성</button>
+      <button id="tg-f" onclick="setMode('f')">여성</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="screen on" id="scr-m">
+      <div class="witty"><span class="em">🛵 띵동—</span> 오늘의 인연이 도착했어요.<br>
+      무료 카드 <b><span id="free-left">2</span>장</b> 남음 · <b>48시간</b> 지나면 인연은 옆집으로 갑니다. 진짜로요.</div>
+      <div id="card-stack"></div>
+      <h2 class="sec">💳 요금 안내 (부담은 확신에만)</h2>
+      <div class="list">
+        <div class="lrow"><div class="l"><b>웰컴 카드 3장</b><small>가입 + 채널 추가 시</small></div><div class="r mint">무료</div></div>
+        <div class="lrow"><div class="l"><b>카드 열람권</b><small>새 인연 카드 1장</small></div><div class="r">50,000원</div></div>
+        <div class="lrow"><div class="l"><b>연락처 교환권</b><small>상대 거절 시 100% 환불 (깔끔)</small></div><div class="r">350,000원</div></div>
+        <div class="lrow"><div class="l"><b>PASS 멤버십</b><small>월 카드 8장 + 우선 배정</small></div><div class="r">월 290,000원</div></div>
+      </div>
+    </section>
+
+    <section class="screen" id="scr-f">
+      <div class="earn">
+        <div class="k">💰 8월에 이만큼 벌었어요 (놀면서)</div>
+        <div class="amt">427,000원</div>
+        <div class="up">지난달보다 +180,000원 · 다음 정산 8/18(화)</div>
+        <div class="grid">
+          <div class="cell"><b>260,000</b><span>매칭</span></div>
+          <div class="cell"><b>90,000</b><span>후기</span></div>
+          <div class="cell"><b>77,000</b><span>추천 8%</span></div>
+        </div>
+      </div>
+      <div class="tier">
+        <div class="head"><b>👑 LADY 등급 (요율 8%)</b><span>MADAM까지 친구 4명!</span></div>
+        <div class="track"><i></i></div>
+        <div class="tsteps"><span>🌹 ROSE 5%</span><span class="cur">👑 LADY 8%</span><span>💎 MADAM 12%</span></div>
+        <p>친구 매출 <b>8% 평생 적립</b> · 월 스타일링비 10만원 · 멤버스 파티 초대<br>
+        MADAM 되면? <b>12%</b> + 전담 매니저 + 카드 우선 배정 + VIP 트립. 친구 부자가 진짜 부자.</p>
+      </div>
+      <div class="code">
+        <div class="k">🎟️ 내 초대 코드</div>
+        <div class="cd">ESC-YOONA</div>
+        <div class="btns">
+          <button class="btn" onclick="copyCode()">복사</button>
+          <button class="btn mint" onclick="toast('카카오톡 공유 (데모) — 실서비스는 딥링크 자동 입력')">친구한테 뿌리기</button>
+        </div>
+        <p>친구가 가입하면 친구도 3만원, 나는 친구 결제마다 8%.<br>예쁜 친구 = 움직이는 연금입니다.</p>
+      </div>
+      <h2 class="sec">👭 내 친구들 (3명 활동 중)</h2>
+      <div class="list">
+        <div class="lrow"><div class="l"><b>서○아</b><small>7월 가입 · 매칭 1건</small></div><div class="r grn">+28,000원</div></div>
+        <div class="lrow"><div class="l"><b>민○</b><small>6월 가입 · 인기 상위 10% (효녀)</small></div><div class="r grn">+42,000원</div></div>
+        <div class="lrow"><div class="l"><b>하○은</b><small>8월 가입 · 심사 통과</small></div><div class="r grn">+10,000원</div></div>
+      </div>
+    </section>
+  </main>
+
+  <nav id="nav-m">
+    <button class="on"><span class="ic">🛵</span>오늘의 인연</button>
+    <button onclick="toast('데모에서는 오늘의 인연만 배달돼요')"><span class="ic">💬</span>매니저</button>
+    <button onclick="toast('데모에서는 오늘의 인연만 배달돼요')"><span class="ic">👤</span>MY</button>
+  </nav>
+  <nav id="nav-f" style="display:none">
+    <button class="on"><span class="ic">💰</span>내 수익</button>
+    <button onclick="copyCode()"><span class="ic">🎟️</span>초대</button>
+    <button onclick="toast('데모에서는 수익 화면만 제공돼요')"><span class="ic">👤</span>MY</button>
+  </nav>
+
+  <div class="mbg" id="m-pay"><div class="sheet">
+    <h3>이 인연, 주문하시겠어요?</h3>
+    <p class="d">상대방도 수락하면 매니저가 카카오톡으로 연락처를 배달해드려요. 상대가 거절하면 <b>전액 자동 환불</b> — 배달 사고 없습니다.</p>
+    <div class="prow"><span>연락처 교환권</span><b>350,000원</b></div>
+    <div class="prow"><span>상호 수락 실패 시</span><span class="ok">100% 자동 환불</span></div>
+    <button class="btn mint wide" onclick="paid()">350,000원 결제하고 주문하기</button>
+    <button class="cancel" onclick="closeM()">장바구니에 넣어둘게요 (다음에)</button>
+  </div></div>
+  <div class="mbg" id="m-done"><div class="sheet" style="text-align:center">
+    <div style="font-size:46px;margin-bottom:10px">🛵💨</div>
+    <h3>주문 완료! 배달 출발했어요</h3>
+    <p class="d">상대방이 수락하면 24시간 안에 카카오톡으로<br>연락처와 첫 만남 가이드가 배달됩니다.</p>
+    <button class="btn mint wide" onclick="closeM()">확인</button>
+  </div></div>
+  <div class="mbg" id="m-open"><div class="sheet">
+    <h3>새 인연 추가 주문?</h3>
+    <p class="d">무료 카드를 다 쓰셨네요. 새 인연 카드는 열람권으로 주문할 수 있어요.</p>
+    <div class="prow"><span>카드 열람권 1장</span><b>50,000원</b></div>
+    <button class="btn mint wide" onclick="openPaid()">50,000원 결제하고 받기</button>
+    <button class="cancel" onclick="closeM()">다음에 할게요</button>
+  </div></div>
+
+  <div id="toast"></div>
+</div>
+
+<script>
+const CARDS=[
+ {ini:"윤",name:"윤○영",age:29,job:"승무원 · 반포",score:92,h:46,grad:"linear-gradient(160deg,#3aa8a4,#1a5250)",
+  saju:"<span class='n'>92점</span><b>무토×계수 무계합</b> — 명리 최강 부부합. 이 정도면 사주가 아니라 예언.",badges:["✓ 지인추천 2인","✓ 신원인증","✓ 라이프스타일"]},
+ {ini:"서",name:"서○진",age:27,job:"피부과 코디네이터 · 청담",score:88,h:41,grad:"linear-gradient(160deg,#4a90b8,#1a3a50)",
+  saju:"<span class='n'>88점</span><b>목생화 상생</b> — 올해 대운에 인연운 겹침. 타이밍 미쳤습니다.",badges:["✓ 지인추천 2인","✓ 신원인증"]},
+ {ini:"정",name:"정○원",age:31,job:"갤러리스트 · 한남",score:85,h:38,grad:"linear-gradient(160deg,#b8864a,#50351a)",
+  saju:"<span class='n'>85점</span>둘 다 배우자궁에 <b>도화</b> — 첫 만남 설렘 보장 조합.",badges:["✓ 지인추천 2인","✓ VIP파티"]}];
+let free=2,idx=0;
+function render(){
+  const c=CARDS[idx%CARDS.length];
+  const deadline=Date.now()+c.h*3600e3;
+  document.getElementById("card-stack").innerHTML=`
+  <div class="pcard">
+    <div class="photo" style="background:${c.grad}">
+      <div class="free-pill">${free>0?`무료 ${free}장 남음`:"열람권"}</div>
+      <div class="star">⭐ ${c.score}</div>
+      <div class="init">${c.ini}</div><div class="veil"></div>
+      <div class="meta"><div class="pname">${c.name}<span>${c.age}세 · ${c.job}</span></div></div>
+    </div>
+    <div class="pbody">
+      <div class="chips">${c.badges.map(b=>`<span class="chip">${b}</span>`).join("")}</div>
+      <div class="saju">${c.saju}</div>
+      <div class="tmr"><span class="l">⏳ 옆집으로 가기까지</span><span class="c" id="clock">--:--:--</span></div>
+      <div class="acts">
+        <button class="btn" onclick="nextCard()">패스</button>
+        <button class="btn mint" onclick="show('m-pay')">이 인연 주문하기</button>
+      </div>
+    </div>
+  </div>`;
+  clearInterval(window._t);
+  window._t=setInterval(()=>{
+    let s=Math.max(0,(deadline-Date.now())/1e3|0);
+    const el=document.getElementById("clock");
+    if(el)el.textContent=`${String(s/3600|0).padStart(2,"0")}:${String(s%3600/60|0).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+  },1000);
+}
+function nextCard(){idx++;
+  if(free>0){free--;document.getElementById("free-left").textContent=free;render();toast("띵동— 다음 인연 배달 완료 (무료)");}
+  else show("m-open");}
+function openPaid(){closeM();idx++;render();toast("결제 완료 (데모) — 새 인연 배달됐어요");}
+function paid(){closeM();show("m-done");}
+function show(id){document.getElementById(id).classList.add("on")}
+function closeM(){document.querySelectorAll(".mbg").forEach(m=>m.classList.remove("on"))}
+function setMode(m){
+  document.getElementById("tg-m").classList.toggle("on",m==="m");
+  document.getElementById("tg-f").classList.toggle("on",m==="f");
+  document.getElementById("scr-m").classList.toggle("on",m==="m");
+  document.getElementById("scr-f").classList.toggle("on",m==="f");
+  document.getElementById("nav-m").style.display=m==="m"?"flex":"none";
+  document.getElementById("nav-f").style.display=m==="f"?"flex":"none";
+  document.getElementById("main").scrollTop=0;}
+function copyCode(){navigator.clipboard?.writeText("ESC-YOONA").catch(()=>{});toast("초대 코드 복사 완료!");}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.style.opacity=1;
+  clearTimeout(window._tt);window._tt=setTimeout(()=>el.style.opacity=0,2600);}
+render();
+</script>
+</body>
+</html>
