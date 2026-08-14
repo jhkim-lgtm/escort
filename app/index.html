@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ESCORT — Members Only (데모 앱)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.hero{padding:36px 24px 26px;text-align:center;border-bottom:1px solid var(--line)}
+.hero h1{font-size:24px;font-weight:900;line-height:1.45;margin:18px 0 10px}
+.hero h1 em{font-style:normal;background:linear-gradient(180deg,var(--metal-hi),var(--metal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:12.5px;color:var(--dim);line-height:1.8}
+.feat{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:20px 20px 6px}
+.feat div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 8px;text-align:center}
+.feat b{display:block;font-size:15px;font-weight:900;color:var(--metal-hi)}
+.feat span{font-size:9px;color:var(--dim);letter-spacing:.08em}
+.roles{padding:20px}
+.role{display:block;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:12px;
+  text-decoration:none;color:var(--txt);transition:.2s;position:relative}
+.role:hover{border-color:var(--metal)}
+.role .tag{font-size:8px;letter-spacing:.28em;color:var(--dim);font-weight:800;text-transform:uppercase}
+.role b{display:block;font-size:16px;font-weight:800;margin:6px 0 4px}
+.role p{font-size:11.5px;color:var(--dim);line-height:1.7}
+.role .arrow{position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--metal);font-size:18px}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="demo-tag">DEMO APP · WORKING TITLE</div>
+  <header class="app">
+    <div class="wordmark">Escort<small>Members Only</small></div>
+    <a class="hbtn" href="admin.html">Console</a>
+  </header>
+  <main class="app" style="padding:0 0 100px">
+    <div class="hero">
+      <div class="mcard-visual" style="margin:0 0 4px;text-align:left">
+        <div class="row1"><div class="brand">Escort</div><div class="chip"></div></div>
+        <div class="num">•••• •••• •••• 0001</div>
+        <div class="row2">
+          <div class="holder"><small>Membership</small><b>Invitation Only</b></div>
+          <div class="since"><small>Est.</small><b>2026</b></div>
+        </div>
+      </div>
+      <h1>사주가 맺어주고,<br><em>검증이 완성하는</em> 만남</h1>
+      <p>앱 설치 없이 카카오톡으로 인연 카드를 받고,<br>48시간 안에 결정합니다. 모든 멤버는 지인 추천 2인과<br>신원 인증을 거친 분들입니다.</p>
+    </div>
+    <div class="feat">
+      <div><b>92점</b><span>평균 궁합</span></div>
+      <div><b>48H</b><span>결정 타임어택</span></div>
+      <div><b>100%</b><span>거절 시 환불</span></div>
+    </div>
+    <div class="roles">
+      <div class="kicker" style="margin:6px 4px 12px">Choose Your Membership</div>
+      <a class="role" href="join.html?role=m">
+        <span class="tag">For Gentlemen</span>
+        <b>💳 멤버 카드 발급받기</b>
+        <p>사주 궁합으로 큐레이션된 검증 인연 카드를 받습니다. 웰컴 카드 3장 무료.</p>
+        <span class="arrow">→</span>
+      </a>
+      <a class="role" href="join.html?role=f">
+        <span class="tag">For Ladies</span>
+        <b>👑 파트너 멤버 신청하기</b>
+        <p>심사 통과 즉시 추천 코드 발급. 만남·후기·추천만으로 매달 수익이 쌓입니다.</p>
+        <span class="arrow">→</span>
+      </a>
+      <div class="notice" id="ref-notice" style="display:none">🔗 <b id="ref-code-txt"></b> 님의 초대로 오셨네요 — 가입 시 축하금 <b>30,000원</b>이 지급됩니다.</div>
+      <div class="notice" id="resume-notice" style="display:none"></div>
+    </div>
+  </main>
+  <footer class="note">기획 검증용 데모 — 결제·매칭·수익은 모두 가상입니다. ESCORT는 워킹네임.
+  <a href="../pitch/">기획서</a> · <a href="../blackcard/">디자인 원형</a> · <a href="../">스타일 쇼룸</a></footer>
+  <div id="toast"></div>
+</div>
+<script src="assets/store.js"></script>
+<script>
+const s0 = load();
+if(s0.pendingRef){
+  document.getElementById("ref-notice").style.display="block";
+  document.getElementById("ref-code-txt").textContent = s0.pendingRef;
+}
+if(s0.user){
+  const n = document.getElementById("resume-notice");
+  n.style.display="block";
+  const home = s0.user.role==="m" ? "cards.html" : "earnings.html";
+  n.innerHTML = `이미 <b>${s0.user.name}</b> 님으로 가입돼 있습니다 — <a href="${home}" style="color:var(--metal-hi);font-weight:800">내 홈으로 이동 →</a>`;
+}
+</script>
+</body>
+</html>

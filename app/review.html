@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ESCORT — 상호 후기 (데모)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.starrow{display:flex;justify-content:center;gap:10px;margin:18px 0 6px}
+.starrow span{font-size:34px;cursor:pointer;filter:grayscale(1);opacity:.35;transition:.15s}
+.starrow span.on{filter:none;opacity:1}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+.tags span{border:1px solid var(--line);border-radius:99px;padding:9px 15px;font-size:11.5px;font-weight:700;color:var(--dim);cursor:pointer;transition:.15s}
+.tags span.on{border-color:var(--metal);color:var(--metal-hi);background:var(--panel2)}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="demo-tag">DEMO APP · WORKING TITLE</div>
+  <header class="app">
+    <div class="wordmark">Escort<small>Mutual Review</small></div>
+    <a class="hbtn" href="cards.html">← Back</a>
+  </header>
+  <main class="app" id="main">
+    <div class="notice">🤝 <b>상호 후기</b>는 다음 매칭의 품질을 만드는 데이터입니다. 양측 모두 작성 완료 시 상대(Lady 멤버)에게 <b>후기 리워드 30,000원</b>, 평점 4.5 이상이면 <b>+40,000원</b>이 지급됩니다.</div>
+    <div class="pcard" id="who"></div>
+    <div class="center">
+      <span class="kicker">Overall</span>
+      <div class="starrow" id="stars"></div>
+      <div id="star-label" style="font-size:12px;color:var(--dim);font-weight:700;margin-bottom:4px">별점을 선택해 주세요</div>
+    </div>
+    <h2 class="sec center" style="margin-top:20px">Manner Tags</h2>
+    <div class="tags" id="tags"></div>
+    <button class="btn metal wide" id="submit" onclick="submitReview()" disabled>후기 제출하기</button>
+    <p style="font-size:10px;color:var(--dim);text-align:center;margin-top:12px;line-height:1.7">후기는 상대에게 점수·태그 통계로만 전달되며,<br>작성자 정보는 노출되지 않습니다.</p>
+  </main>
+  <div id="toast"></div>
+</div>
+<script src="assets/store.js"></script>
+<script>
+const u = requireUser();
+const cardId = new URLSearchParams(location.search).get("card");
+const s = load();
+const card = (s.cards||[]).find(c=>c.id===cardId) || (s.cards||[]).filter(c=>c.status==="met").slice(-1)[0];
+if(!card){ location.href = "cards.html"; }
+document.getElementById("who").innerHTML = `
+  <div class="photo" style="background:${card.grad};height:150px">
+    <div class="init" style="font-size:56px">${card.ini}</div><div class="veil"></div>
+    <div class="meta"><div class="pname">${card.name}<span>${card.age}세 · ${card.job}</span></div></div>
+  </div>`;
+let rating = 0, picked = new Set();
+const LABELS = {1:"아쉬웠어요",2:"그저 그랬어요",3:"좋았어요",4:"설렜어요",5:"운명이었어요"};
+const TAGS = ["시간 약속을 지켜요","대화가 편안해요","사진과 같아요","매너가 좋아요","다시 만나고 싶어요","리드를 잘해요","배려심이 깊어요"];
+const stars = document.getElementById("stars");
+for(let i=1;i<=5;i++){
+  const el = document.createElement("span"); el.textContent = "⭐"; el.dataset.v = i;
+  el.onclick = () => { rating = i;
+    stars.querySelectorAll("span").forEach(x=>x.classList.toggle("on", +x.dataset.v<=i));
+    document.getElementById("star-label").textContent = LABELS[i];
+    document.getElementById("submit").disabled = false; };
+  stars.appendChild(el);
+}
+const tags = document.getElementById("tags");
+TAGS.forEach(t => {
+  const el = document.createElement("span"); el.textContent = t;
+  el.onclick = () => { el.classList.toggle("on"); el.classList.contains("on") ? picked.add(t) : picked.delete(t); };
+  tags.appendChild(el);
+});
+function submitReview(){
+  patch(st => {
+    const c = st.cards.find(x=>x.id===card.id); c.status = "reviewed"; c.rating = rating; c.tags = [...picked];
+    st.reviews = st.reviews||[];
+    st.reviews.push({card:card.name, rating, tags:[...picked], at:new Date().toISOString().slice(0,10)});
+  });
+  const bonus = rating>=4.5||rating===5 ? " + 평점 리워드 4만원" : "";
+  document.getElementById("main").innerHTML = `
+    <div class="center" style="padding:60px 0">
+      <div style="font-size:46px">💌</div>
+      <h3 style="font-size:19px;font-weight:800;margin:16px 0 10px">후기가 전달되었습니다</h3>
+      <p style="font-size:12.5px;color:var(--dim);line-height:1.9">상대측 후기가 완료되면 ${card.name} 님에게<br>후기 리워드 3만원${bonus}이 지급됩니다.<br><br>이 데이터는 다음 카드 큐레이션 정확도를 높입니다.</p>
+      <a class="btn metal wide" style="margin-top:26px" href="cards.html">다음 인연 만나러 가기</a>
+    </div>`;
+}
+</script>
+</body>
+</html>

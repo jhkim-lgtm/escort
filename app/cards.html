@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ESCORT — 오늘의 카드 (데모)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="frame">
+  <div class="demo-tag">DEMO APP · WORKING TITLE</div>
+  <header class="app">
+    <div class="wordmark">Escort<small>Today's Card</small></div>
+    <button class="hbtn" onclick="show('m-my')">My</button>
+  </header>
+  <main class="app" id="main"></main>
+
+  <nav class="tabbar">
+    <a class="on" href="cards.html"><span class="ic">🧧</span>Cards</a>
+    <a onclick="toast('실서비스: 매니저 카톡 상담 연결')"><span class="ic">💬</span>Concierge</a>
+    <a onclick="show('m-my')"><span class="ic">👤</span>My</a>
+  </nav>
+
+  <!-- 교환권 결제 -->
+  <div class="mbg" id="m-pay"><div class="sheet">
+    <h3>연락처 교환 신청</h3>
+    <p class="d">상대방도 수락하면 매니저가 <b>카카오톡</b>으로 서로의 연락처를 전달합니다. 상대가 거절하면 <b>전액 자동 환불</b>됩니다.</p>
+    <div class="prow"><span>연락처 교환권</span><b>₩350,000</b></div>
+    <div class="prow"><span>상호 수락 실패 시</span><span class="ok">100% 자동 환불</span></div>
+    <button class="btn metal wide" onclick="payExchange()">Charge to Card — ₩350,000</button>
+    <button class="cancel" onclick="closeM()">Not Now</button>
+  </div></div>
+
+  <!-- 열람권 결제 -->
+  <div class="mbg" id="m-open"><div class="sheet">
+    <h3>새 카드 열람</h3>
+    <p class="d">무료 웰컴 카드를 모두 사용했습니다. 새 인연 카드는 열람권으로 오픈합니다.</p>
+    <div class="prow"><span>카드 열람권 1장</span><b>₩50,000</b></div>
+    <button class="btn metal wide" onclick="payOpen()">Charge to Card — ₩50,000</button>
+    <button class="cancel" onclick="closeM()">Not Now</button>
+  </div></div>
+
+  <!-- MY -->
+  <div class="mbg" id="m-my"><div class="sheet">
+    <h3>My Membership</h3>
+    <div class="list" id="my-info" style="margin-bottom:6px"></div>
+    <h2 class="sec">Payments</h2>
+    <div class="list" id="my-pays"></div>
+    <button class="btn wide sm" style="margin-top:16px" onclick="if(confirm('데모 데이터를 초기화할까요?')){reset();location.href='index.html'}">데모 초기화 (로그아웃)</button>
+    <button class="cancel" onclick="closeM()">Close</button>
+  </div></div>
+
+  <div id="toast"></div>
+</div>
+<script src="assets/store.js"></script>
+<script>
+const u = requireUser();
+if(u && u.role!=="m") location.href = "earnings.html";
+
+function render(){
+  let s = load();
+  let card = activeCard(s);
+  if(!card){
+    if((s.freeLeft||0) > 0 || (s.opens||0) > 0){
+      s = patch(st => {
+        const c = issueCard(st);
+        if(c){ if((st.freeLeft||0)>0) st.freeLeft--; else st.opens--; }
+      });
+      card = activeCard(s);
+    }
+  }
+  const main = document.getElementById("main");
+  if(!card){
+    main.innerHTML = `
+      <div class="notice">오늘 준비된 카드를 모두 확인하셨거나, 무료 카드가 소진되었습니다.</div>
+      <div class="center" style="padding:40px 0 26px"><div style="font-size:44px;margin-bottom:12px">🧧</div>
+        <p style="font-size:12.5px;color:var(--dim);line-height:1.8">새 인연 카드는 열람권으로 만날 수 있습니다.<br>사주 궁합 상위 후보부터 큐레이션됩니다.</p></div>
+      <button class="btn metal wide" onclick="show('m-open')">열람권으로 새 카드 받기 — ₩50,000</button>
+      ${priceList()}`;
+    return;
+  }
+  if(card.status === "sent"){
+    main.innerHTML = `
+      <div class="notice">💳 <b>${u.name}</b> 님, 오늘의 인연 카드입니다. 무료 카드 <b>${s.freeLeft||0}장</b> 남음 · <b>48시간</b> 내 결정.</div>
+      <div class="pcard">
+        <div class="pill">${card.isFree?`Complimentary`:"Unlocked"}</div>
+        <div class="photo" style="background:${card.grad}">
+          <div class="init">${card.ini}</div><div class="veil"></div>
+          <div class="meta">
+            <div class="pname">${card.name}<span>${card.age}세 · ${card.job} · ${card.area}</span></div>
+            <div class="verify"><em>✓</em> ${card.verify}</div>
+          </div>
+        </div>
+        <div class="pbody">
+          <div class="saju"><div class="num">${card.score}<small>점</small></div>
+            <div class="txt">당신(${dayStem(u.birth).slice(0,2)})과 상대의 사주 대조 — ${card.sajuDesc}</div></div>
+          <div class="tmr" id="tmr"><span class="l">Respond Within</span><span class="c" id="clock">--:--:--</span></div>
+          <div class="btnrow" style="margin-top:14px">
+            <button class="btn" onclick="decline('${card.id}')">Decline</button>
+            <button class="btn metal" onclick="show('m-pay')">Request Exchange</button>
+          </div>
+        </div>
+      </div>
+      ${priceList()}`;
+    clock(document.getElementById("clock"), card.deadline, document.getElementById("tmr"));
+  }
+  else if(card.status === "pending_female"){
+    main.innerHTML = `
+      <div class="center" style="padding:44px 0 30px">
+        <span class="spin"></span>
+        <h3 style="font-size:17px;font-weight:800;margin:18px 0 8px">상대방 수락 대기 중</h3>
+        <p style="font-size:12px;color:var(--dim);line-height:1.8">${card.name} 님에게 교환 요청을 전달했습니다.<br>수락 시 매니저가 카카오톡으로 연락처를 전달합니다.<br>거절 시 <b style="color:var(--ok)">₩350,000 전액 자동 환불</b>됩니다.</p>
+      </div>
+      <div class="list"><div class="lrow"><div class="l"><b>${card.name}</b><small>궁합 ${card.score}점 · 교환권 결제 완료</small></div><span class="status wait">Pending</span></div></div>
+      <div class="notice" style="margin-top:14px">⏱️ 데모에서는 약 <b>8초 후</b> 상대 수락이 자동 시뮬레이션됩니다. (실서비스: 상대 실제 응답 / 운영 콘솔에서 수동 처리 가능)</div>`;
+    setTimeout(()=>{
+      const st = load(); const c = (st.cards||[]).find(x=>x.id===card.id);
+      if(c && c.status==="pending_female"){ patch(x=>{ x.cards.find(y=>y.id===card.id).status="matched"; }); render(); toast("상대방이 수락했습니다!"); }
+    }, 8000);
+  }
+  else if(card.status === "matched"){
+    main.innerHTML = `
+      <div class="center" style="padding:26px 0 8px"><div style="font-size:42px">🥂</div>
+        <h3 style="font-size:18px;font-weight:800;margin:12px 0 6px">상호 수락 완료</h3>
+        <p style="font-size:12px;color:var(--dim)">매니저가 연락처와 첫 만남 가이드를 전달했습니다.</p></div>
+      <div class="mcard-visual" style="margin-top:14px">
+        <div class="row1"><div class="brand">Introduction</div><div class="chip"></div></div>
+        <div class="num" style="letter-spacing:.1em">${card.name} · 010-••••-${String(hashStr(card.name)%9000+1000)}</div>
+        <div class="row2">
+          <div class="holder"><small>Compatibility</small><b>${card.score}점 — 상위 조합</b></div>
+          <div class="since"><small>Guide</small><b>카카오톡 전달됨</b></div>
+        </div>
+      </div>
+      <div class="notice">🍷 <b>첫 만남 가이드</b> — 추천 장소·대화 주제·궁합 포인트가 카카오톡으로 전달됩니다. 만남 후 <b>상호 후기</b>를 작성하면 상대에게 후기 리워드가 지급됩니다.</div>
+      <button class="btn metal wide" onclick="met('${card.id}')">만남 완료 — 후기 작성하기</button>`;
+  }
+  else if(card.status === "met"){
+    location.href = "review.html?card=" + card.id;
+  }
+  renderMy(s);
+}
+function priceList(){
+  return `<h2 class="sec">Membership Fees</h2>
+  <div class="list">
+    <div class="lrow"><div class="l"><b>웰컴 카드 3장</b><small>가입 + 채널 추가 시</small></div><div class="r">Complimentary</div></div>
+    <div class="lrow"><div class="l"><b>카드 열람권</b><small>새 인연 카드 1장</small></div><div class="r">₩50,000</div></div>
+    <div class="lrow"><div class="l"><b>연락처 교환권</b><small>상대 거절 시 100% 환불</small></div><div class="r">₩350,000</div></div>
+    <div class="lrow"><div class="l"><b>PASS 멤버십</b><small>월 카드 8장 + 우선 배정</small></div><div class="r">₩290,000 / mo</div></div>
+  </div>`;
+}
+function decline(id){
+  patch(s => { s.cards.find(c=>c.id===id).status = "declined"; });
+  toast("카드를 거절했습니다");
+  render();
+}
+function payExchange(){
+  closeM();
+  patch(s => {
+    const c = activeCard(s);
+    addPayment(s, "exchange", PRICE.exchange, `연락처 교환권 — ${c.name}`);
+    ledgerOnExchange(s, c);
+    c.status = "pending_female";
+  });
+  toast("결제 완료 (데모) — 상대에게 요청을 전달했습니다");
+  render();
+}
+function payOpen(){
+  closeM();
+  patch(s => { addPayment(s, "open", PRICE.open, "카드 열람권"); s.opens = (s.opens||0)+1; });
+  toast("결제 완료 (데모) — 새 카드가 도착했습니다");
+  render();
+}
+function met(id){
+  patch(s => { s.cards.find(c=>c.id===id).status = "met"; });
+  location.href = "review.html?card=" + id;
+}
+function renderMy(s){
+  const pays = s.payments||[];
+  document.getElementById("my-info").innerHTML = `
+    <div class="lrow"><div class="l"><b>${u.name}</b><small>${u.phone} · ${u.birth} ${u.btime||""}</small></div><span class="status ok">Member</span></div>
+    <div class="lrow"><div class="l"><b>일간(사주)</b><small>궁합 산출 기준</small></div><div class="r dim">${dayStem(u.birth)}</div></div>
+    <div class="lrow"><div class="l"><b>무료 카드</b><small>웰컴 3장 중</small></div><div class="r">${s.freeLeft||0}장 남음</div></div>
+    <div class="lrow"><div class="l"><b>초대 코드</b><small>가입 시 입력</small></div><div class="r dim">${u.refBy||"미입력"}</div></div>`;
+  document.getElementById("my-pays").innerHTML = pays.length
+    ? pays.map(p=>`<div class="lrow"><div class="l"><b>${p.note}</b><small>${p.at}</small></div><div class="r">₩${fmt(p.amount)}</div></div>`).join("")
+    : `<div class="lrow"><div class="l"><small>결제 내역이 없습니다</small></div></div>`;
+}
+render();
+</script>
+</body>
+</html>
