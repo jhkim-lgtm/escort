@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ESCORT 기획서 — 사주가 맺어주고, 검증이 완성하고, 추천이 키우는 만남</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#0b0b10;--panel:#14141c;--panel2:#1b1b26;--line:#26263a;--gold:#d4b36a;--gold-soft:#e8d5a3;
+  --red:#e0485e;--red-soft:#ff7d8f;--txt:#f2eee6;--dim:#9b96a8;--ok:#5fd39a;
+  --grad-gold:linear-gradient(135deg,#d4b36a,#f0dfae 55%,#b8944a)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;line-height:1.7}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+section{padding:88px 0;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:.3em;color:var(--gold);font-weight:800;margin-bottom:14px}
+h2{font-size:clamp(24px,4.5vw,36px);font-weight:900;line-height:1.35;margin-bottom:14px}
+h2 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+p.lead{font-size:15.5px;color:#c9c3d6;max-width:640px}
+.reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+/* hero */
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero:before{content:"";position:absolute;top:-30%;right:-15%;width:70vw;height:70vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,179,106,.13),transparent 65%);pointer-events:none}
+.hero:after{content:"";position:absolute;bottom:-40%;left:-20%;width:60vw;height:60vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(224,72,94,.1),transparent 65%);pointer-events:none}
+.hero .logo{font-size:15px;letter-spacing:.5em;font-weight:800;color:var(--gold);margin-bottom:26px}
+.hero h1{font-size:clamp(34px,6.5vw,60px);font-weight:900;line-height:1.28}
+.hero h1 em{font-style:normal;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{margin-top:20px;font-size:16px;color:var(--dim);max-width:560px}
+.hero .cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;padding:15px 28px;border-radius:99px;font-weight:800;font-size:14.5px;text-decoration:none;transition:.2s}
+.btn.gold{background:var(--grad-gold);color:#171208}
+.btn.line{border:1px solid var(--line);color:var(--txt)}
+.btn:hover{transform:translateY(-2px)}
+.stats{display:flex;gap:36px;margin-top:52px;flex-wrap:wrap}
+.stats .s b{font-size:26px;font-weight:900;color:var(--gold);display:block}
+.stats .s span{font-size:11.5px;color:var(--dim)}
+/* cards grid */
+.grid{display:grid;gap:14px;margin-top:32px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px}
+.card h3{font-size:16.5px;font-weight:900;margin-bottom:10px}
+.card h3 .tag{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--gold);display:block;margin-bottom:8px}
+.card p{font-size:13px;color:#bab4c8}
+.card ul{margin:10px 0 0 2px;list-style:none}
+.card li{font-size:12.5px;color:#bab4c8;padding:5px 0 5px 20px;position:relative}
+.card li:before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:8px;top:11px}
+.card li b{color:var(--txt)}
+/* 여정 탭 */
+.jtabs{display:flex;gap:8px;margin:28px 0 18px}
+.jtabs button{font-family:inherit;border:1px solid var(--line);background:var(--panel);color:var(--dim);
+  font-size:13.5px;font-weight:800;padding:11px 22px;border-radius:99px;cursor:pointer;transition:.2s}
+.jtabs button.on{background:var(--grad-gold);color:#171208;border-color:transparent}
+.journey{display:none}.journey.on{display:grid;gap:12px}
+.step{display:flex;gap:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px 22px;align-items:flex-start}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--grad-gold);color:#171208;font-weight:900;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.step b{display:block;font-size:14.5px;margin-bottom:3px}
+.step p{font-size:12.5px;color:#bab4c8}
+.step p em{font-style:normal;color:var(--gold)}
+/* 시뮬레이터 */
+.sim{background:var(--panel);border:1px solid rgba(212,179,106,.35);border-radius:26px;padding:32px;margin-top:32px}
+.sim .row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.sim label{font-size:13.5px;font-weight:800}
+.sim .nval{font-size:22px;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;margin:18px 0 26px;accent-color:#d4b36a;height:6px}
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.sim-cell{background:var(--panel2);border-radius:16px;padding:16px;text-align:center}
+.sim-cell b{display:block;font-size:19px;font-weight:900;font-variant-numeric:tabular-nums}
+.sim-cell span{font-size:10.5px;color:var(--dim)}
+.sim-cell.c1 b{color:var(--gold)}.sim-cell.c2 b{color:var(--ok)}.sim-cell.c3 b{color:var(--red-soft)}.sim-cell.c4 b{color:#8ab8ff}
+.split-bar{display:flex;height:38px;border-radius:12px;overflow:hidden;margin-top:22px;font-size:10.5px;font-weight:800}
+.split-bar div{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;transition:.4s;color:#111}
+.split-bar .co{background:#d4b36a}.split-bar .wo{background:#5fd39a}.split-bar .rf{background:#ff7d8f}
+.legend{display:flex;gap:18px;margin-top:12px;font-size:11.5px;color:var(--dim);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+/* 초등학생 도식 */
+.flow{background:var(--panel);border:1px solid var(--line);border-radius:26px;padding:34px 26px;margin-top:32px;text-align:center}
+.flow h3{font-size:17px;font-weight:900;margin-bottom:6px}
+.flow .sub{font-size:12.5px;color:var(--dim);margin-bottom:30px}
+.flow-stage{display:flex;align-items:center;justify-content:center;gap:clamp(8px,3vw,30px);flex-wrap:wrap}
+.person{width:110px}
+.person .face{font-size:46px;line-height:1;margin-bottom:8px;position:relative;display:inline-block}
+.person b{display:block;font-size:13px}
+.person small{font-size:10.5px;color:var(--dim);display:block;line-height:1.5}
+.arrow{font-size:22px;color:var(--gold);position:relative;min-width:64px}
+.arrow .money{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:900;color:var(--gold);white-space:nowrap}
+.coin{position:absolute;font-size:18px;opacity:0;pointer-events:none}
+.flow.playing .coin{animation:travel 1.6s ease forwards}
+@keyframes travel{0%{opacity:0;transform:translateX(0)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(70px)}}
+.flow-result{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:30px}
+.fr{border-radius:16px;padding:16px 12px;font-size:12px;font-weight:700}
+.fr b{display:block;font-size:18px;font-weight:900;margin-top:4px;font-variant-numeric:tabular-nums}
+.fr.co{background:rgba(212,179,106,.12);border:1px solid rgba(212,179,106,.4);color:var(--gold)}
+.fr.wo{background:rgba(95,211,154,.1);border:1px solid rgba(95,211,154,.35);color:var(--ok)}
+.fr.rf{background:rgba(255,125,143,.1);border:1px solid rgba(255,125,143,.35);color:var(--red-soft)}
+.play{margin-top:26px}
+/* 티어 표 */
+table{width:100%;border-collapse:collapse;margin-top:28px;font-size:13px}
+th{background:var(--panel2);padding:14px 12px;font-size:12px;letter-spacing:.05em;color:var(--gold);text-align:center;border:1px solid var(--line)}
+td{padding:13px 12px;border:1px solid var(--line);text-align:center;color:#cfc9dc;vertical-align:top}
+td.l{text-align:left}
+td b{color:var(--txt)}
+tr.hl td{background:rgba(212,179,106,.07)}
+.tstar{color:var(--gold);font-weight:900}
+/* mlm cards */
+.mlm .card{position:relative}
+.mlm .src{position:absolute;top:22px;right:22px;font-size:10px;color:var(--dim);letter-spacing:.08em}
+.pill{display:inline-block;font-size:10.5px;font-weight:800;background:rgba(212,179,106,.14);border:1px solid rgba(212,179,106,.4);
+  color:var(--gold);padding:4px 11px;border-radius:99px;margin:14px 4px 0 0}
+/* redline */
+.red-sec .card{border-color:rgba(224,72,94,.4)}
+.red-sec .card h3{color:var(--red-soft)}
+.risk-lv{font-size:10px;font-weight:900;letter-spacing:.1em;padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:10px}
+.risk-hi{background:rgba(224,72,94,.15);color:var(--red-soft);border:1px solid rgba(224,72,94,.4)}
+.risk-md{background:rgba(255,190,90,.12);color:#ffbe5a;border:1px solid rgba(255,190,90,.35)}
+/* roadmap */
+.road{display:grid;gap:12px;margin-top:30px}
+.road .step .n{background:var(--panel2);color:var(--gold);border:1px solid rgba(212,179,106,.5)}
+footer{padding:60px 0 80px;text-align:center;color:#57536a;font-size:11px}
+footer a{color:var(--gold);text-decoration:none;font-weight:700}
+.topnav{position:fixed;top:0;left:0;right:0;background:rgba(11,11,16,.85);backdrop-filter:blur(12px);z-index:100;
+  border-bottom:1px solid var(--line)}
+.topnav .in{max-width:900px;margin:0 auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center}
+.topnav .lg{font-size:13px;letter-spacing:.4em;font-weight:800;color:var(--gold);text-decoration:none}
+.topnav .links{display:flex;gap:18px;font-size:12px}
+.topnav .links a{color:var(--dim);text-decoration:none;font-weight:700}
+.topnav .links a:hover{color:var(--gold)}
+@media(max-width:640px){.topnav .links{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topnav"><div class="in">
+  <a class="lg" href="#top">ESCORT</a>
+  <div class="links">
+    <a href="#bm">비즈니스 모델</a><a href="#sim">수익 구조</a><a href="#ref">레퍼럴 설계</a><a href="#mlm">MLM 스터디</a><a href="#legal">법률 체크</a>
+    <a href="../" style="color:var(--gold)">데모 앱 →</a>
+  </div>
+</div></div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero" id="top"><div class="wrap">
+  <div class="logo">E S C O R T</div>
+  <h1>사주가 맺어주고,<br>검증이 완성하고,<br><em>추천이 스스로 키우는</em> 만남.</h1>
+  <p class="sub">앱 설치 없이 카카오톡 채널로 인연 카드를 받고, 48시간 안에 결정한다.
+  남성은 검증된 인연에 지불하고, 여성은 만남과 추천만으로 수익을 만든다 — 성장 엔진을 유저 안에 심은 프리미엄 매칭 서비스.</p>
+  <div class="cta">
+    <a class="btn gold" href="../">📱 데모 앱 체험하기</a>
+    <a class="btn line" href="#ref">레퍼럴 구조 보기</a>
+  </div>
+  <div class="stats">
+    <div class="s"><b>₩350,000</b><span>연락처 교환 1건당 결제액</span></div>
+    <div class="s"><b>48시간</b><span>카드 수락/거절 타임어택</span></div>
+    <div class="s"><b>5~12%</b><span>추천인 평생 리워드 요율</span></div>
+    <div class="s"><b>0개</b><span>설치해야 하는 앱</span></div>
+  </div>
+</div></div>
+
+<!-- ═══════════ 왜 지금 ═══════════ -->
+<section><div class="wrap reveal">
+  <div class="kicker">01 — WHY NOW</div>
+  <h2>데이팅 앱은 <em>피로</em>해졌고,<br>사주는 다시 <em>가장 힙한 언어</em>가 됐다.</h2>
+  <p class="lead">무한 스와이프는 선택 피로만 남긴다. 반대로 2030에게 사주·궁합은 오락이자 자기 이해의 언어로 부활했다.
+  "사주가 잘 맞는데, 외모도 괜찮고, 검증까지 된 사람" — 이 세 가지를 동시에 주는 서비스는 아직 없다.</p>
+  <div class="grid g3">
+    <div class="card"><h3><span class="tag">PROBLEM 1</span>무한 스와이프 피로</h3><p>하루 수백 장 프로필 → 선택 마비 → 이탈. 우리는 하루 1~3장의 카드만 보낸다. 희소성이 곧 가치다.</p></div>
+    <div class="card"><h3><span class="tag">PROBLEM 2</span>검증 부재</h3><p>사진·직업·매너 어떤 것도 보증되지 않는다. 우리는 지인 추천 2인 + 신원 인증 + 만남 후 상호 평점으로 3중 검증한다.</p></div>
+    <div class="card"><h3><span class="tag">PROBLEM 3</span>앱 설치의 낙인</h3><p>폰에 깔린 데이팅 앱은 들키는 순간 리스크다. 카카오톡 채널로 카드를 받으면 설치할 앱 자체가 없다.</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ 벤치마크 ═══════════ -->
+<section><div class="wrap reveal">
+  <div class="kicker">02 — BENCHMARK</div>
+  <h2>세 개의 레퍼런스에서 <em>하나씩만</em> 훔친다.</h2>
+  <div class="grid g3">
+    <div class="card"><h3><span class="tag">미트서울</span>카톡 채널 = 프로덕트</h3>
+      <ul><li>웹 링크로 정보만 입력 → 채널 추가 → <b>친구톡/알림톡으로 후보 카드 수신</b></li>
+      <li>앱 없음 = 설치 장벽 0 + 은밀성</li><li>채널 추가 자체가 CRM 자산</li>
+      <li>→ 우리가 가져올 것: <b>배송 채널 전체</b></li></ul></div>
+    <div class="card"><h3><span class="tag">RAYA</span>폐쇄형 검증 커뮤니티</h3>
+      <ul><li>기존 멤버 추천 없이는 입장 불가 → <b>1티어가 지인이면 매칭 풀 전체의 수준이 유지됨</b></li>
+      <li>멤버당 추천 슬롯 제한 (우리는 2명)</li><li>매너 평가 3회+ → 멤버 전용 파티 초대</li>
+      <li>→ 우리가 가져올 것: <b>공급 품질 관리</b></li></ul></div>
+    <div class="card"><h3><span class="tag">홍연 프로토타입</span>사주 매칭 엔진</h3>
+      <ul><li>이미 구축: 카카오싱크 가입 폼 + 사주 엔진 + 실시간 응답 파이프라인</li>
+      <li>궁합 점수는 <b>"왜 이 사람인가"의 서사</b> — 스와이프에 없는 운명 프레임</li>
+      <li>→ 우리가 가져올 것: <b>매칭 로직 + 기수집 DB</b></li></ul></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ BM / 여정 ═══════════ -->
+<section id="bm"><div class="wrap reveal">
+  <div class="kicker">03 — HOW IT WORKS</div>
+  <h2>남자는 <em>확신에 지불</em>하고,<br>여자는 <em>만남으로 수익</em>을 만든다.</h2>
+  <div class="jtabs">
+    <button class="on" onclick="jt(this,'j-m')">💳 남성 회원 여정</button>
+    <button onclick="jt(this,'j-f')">💰 여성 회원 여정</button>
+  </div>
+  <div class="journey on" id="j-m">
+    <div class="step"><div class="n">1</div><div><b>웹 링크로 가입 + 카카오 채널 추가</b><p>앱 설치 없음. 카카오싱크로 이름·연락처·생년월일 자동 수집 → 사주 프로필 생성. 채널 추가 기념 <em>웰컴 카드 3장 무료</em>.</p></div></div>
+    <div class="step"><div class="n">2</div><div><b>친구톡으로 인연 카드 수신</b><p>사주 궁합 점수 + 검증 배지가 붙은 카드가 카톡으로 도착. <em>48시간 타임어택</em> — 수락이든 거절이든 결정해야 다음 카드가 온다.</p></div></div>
+    <div class="step"><div class="n">3</div><div><b>무료 소진 후 카드 열람권 5만원</b><p>더 보고 싶으면 지불한다. 카드 1장 = 5만원. 헤비 유저용 PASS 멤버십(월 29만, 카드 8장 + 우선 배정).</p></div></div>
+    <div class="step"><div class="n">4</div><div><b>연락처 교환권 35만원 (30~50만 구간)</b><p>수락 + 상대 수락 시 매니저가 카톡으로 연락처 전달. <em>상대 거절 시 전액 환불</em> — 결제 장벽을 심리적으로 제거하는 핵심 장치.</p></div></div>
+  </div>
+  <div class="journey" id="j-f">
+    <div class="step"><div class="n">1</div><div><b>초대 코드로 가입 → 3중 심사</b><p>기존 멤버 추천(슬롯 2개) + 프로필 심사 + 신원 인증. 심사 통과 즉시 <em>내 추천 코드 발급</em> + 피추천 축하금 3만원.</p></div></div>
+    <div class="step"><div class="n">2</div><div><b>카드에 선택되면 만남 여부 결정</b><p>내 카드가 오픈·수락될 때마다 알림. 만남 여부는 전적으로 본인 선택 — 거절해도 불이익 없음.</p></div></div>
+    <div class="step"><div class="n">3</div><div><b>만남 성사 = 매칭 리워드 3~10만원</b><p>연락처 교환 성사 시 기본 3만원, 만남 후 상호 후기 완료 +3만, 평점 4.5 이상 +4만. <em>명목은 '후기 리워드'</em> — 만남의 대가가 아니라 데이터의 대가로 설계 (법률 섹션 참조).</p></div></div>
+    <div class="step"><div class="n">4</div><div><b>친구를 초대하면 평생 리워드</b><p>내 코드로 가입한 친구가 매출을 일으킬 때마다 <em>티어 요율(5~12%)만큼 평생 지급</em>. 친구가 인기 많을수록 나는 놀아도 돈이 들어온다 — 이게 성장 엔진.</p></div></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ 수익 시뮬레이터 ═══════════ -->
+<section id="sim"><div class="wrap reveal">
+  <div class="kicker">04 — REVENUE SIMULATOR</div>
+  <h2>월 매칭 건수를 움직여 보세요.</h2>
+  <p class="lead">가정: 연락처 교환 1건 = 35만원, 매칭 1건당 카드 열람 4장(5만원×4) 동반 발생, 여성 리워드 평균 6.5만원, 추천인 평균 요율 8%.</p>
+  <div class="sim">
+    <div class="row"><label>월 연락처 교환(매칭) 건수</label><span class="nval" id="sim-n">50건</span></div>
+    <input type="range" id="sim-range" min="10" max="500" step="10" value="50" oninput="sim()">
+    <div class="sim-grid">
+      <div class="sim-cell c1"><b id="s-rev">—</b><span>월 총매출</span></div>
+      <div class="sim-cell c2"><b id="s-women">—</b><span>여성 리워드 지급</span></div>
+      <div class="sim-cell c3"><b id="s-ref">—</b><span>추천인 리워드 지급</span></div>
+      <div class="sim-cell c4"><b id="s-net">—</b><span>회사 잔여 (마진)</span></div>
+    </div>
+    <div class="split-bar"><div class="co" id="b-co">회사</div><div class="wo" id="b-wo">여성</div><div class="rf" id="b-rf">추천인</div></div>
+    <div class="legend">
+      <span><i style="background:#d4b36a"></i>회사 몫</span>
+      <span><i style="background:#5fd39a"></i>여성 매칭·후기 리워드</span>
+      <span><i style="background:#ff7d8f"></i>추천인(마담) 리워드</span>
+      <span id="s-rate" style="color:var(--gold);font-weight:800"></span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══════════ 초등학생 도식 ═══════════ -->
+<section id="ref"><div class="wrap reveal">
+  <div class="kicker">05 — REFERRAL, EXPLAINED LIKE I'M 10</div>
+  <h2>35만원 한 장의 여행 —<br><em>초등학생도 이해하는</em> 돈의 흐름.</h2>
+  <p class="lead">철수가 영희 카드를 보고 연락처 교환권 35만원을 결제하면, 그 돈은 세 갈래로 나뉜다.
+  영희를 데려온 사람(수진)에게도 돈이 흐르기 때문에, 수진은 예쁘고 성격 좋은 친구를 계속 데려올 이유가 생긴다.</p>
+
+  <div class="flow" id="flow1">
+    <h3>STEP 1 — 돈이 들어온다</h3>
+    <div class="sub">철수(남성 회원)가 영희 카드를 수락하고 결제</div>
+    <div class="flow-stage">
+      <div class="person"><div class="face">🙋‍♂️</div><b>철수</b><small>영희 카드가 마음에 듦<br>35만원 결제</small></div>
+      <div class="arrow">→<span class="money">₩350,000</span><span class="coin" style="top:6px;left:8px">🪙</span></div>
+      <div class="person"><div class="face">🏛️</div><b>ESCORT</b><small>회사가 먼저<br>전액을 받는다</small></div>
+    </div>
+    <h3 style="margin-top:40px">STEP 2 — 돈이 나뉜다</h3>
+    <div class="sub">회사가 규칙대로 자동 분배 (영희가 LADY 티어의 수진 코드로 가입한 경우)</div>
+    <div class="flow-stage">
+      <div class="person"><div class="face">🏛️</div><b>ESCORT</b><small>자동 정산</small></div>
+      <div class="arrow">→<span class="coin" style="top:6px;left:8px">🪙</span></div>
+      <div style="display:grid;gap:10px">
+        <div class="person" style="width:150px"><div class="face">👩</div><b>영희</b><small>만남의 주인공<br><span style="color:var(--ok);font-weight:800">최대 +10만원</span></small></div>
+        <div class="person" style="width:150px"><div class="face">👑</div><b>수진</b><small>영희를 데려온 친구<br><span style="color:var(--red-soft);font-weight:800">+2.8만원 (8%)</span></small></div>
+      </div>
+    </div>
+    <div class="flow-result">
+      <div class="fr co">🏛️ 회사<b>₩222,000</b>63%</div>
+      <div class="fr wo">👩 영희 (매칭+후기)<b>₩100,000</b>29%</div>
+      <div class="fr rf">👑 수진 (추천 8%)<b>₩28,000</b>8%</div>
+    </div>
+    <button class="btn gold play" onclick="playFlow()">▶ 돈의 흐름 재생</button>
+  </div>
+
+  <div class="grid g2" style="margin-top:20px">
+    <div class="card"><h3>🔁 그리고 이게 반복된다</h3>
+      <p>영희가 다음 달 또 매칭되면? 수진은 <b>또</b> 8%를 받는다. 수진 입장에선 예쁜 친구 한 명 = 매달 돈이 나오는 <b>연금</b>이다.
+      그래서 수진은 영희 같은 친구를 계속 찾아 데려온다. 회사가 광고비를 쓰는 게 아니라, <b>수진이 회사의 영업사원이 된다.</b></p></div>
+    <div class="card"><h3>🧲 초대받는 친구도 이득 (바이낸스 킥백 원리)</h3>
+      <p>영희도 수진 코드로 가입하는 순간 <b>축하금 3만원</b>을 받는다. "네 코드 입력하면 나한테 뭐가 좋은데?"라는 질문이 사라진다.
+      추천인 혜택을 피추천인과 <b>나눠 갖는 양방향 구조</b> — 코드 입력률을 끌어올리는 검증된 장치.</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ 티어 시스템 ═══════════ -->
+<section><div class="wrap reveal">
+  <div class="kicker">06 — TIER SYSTEM</div>
+  <h2>🌹 ROSE → 👑 LADY → 💎 MADAM<br><em>마담에게는 더 준다.</em></h2>
+  <p class="lead">친구를 많이, 잘 데려오는 사람(마담)은 관리 비용을 대체하는 핵심 자산이다. 요율을 차등 적용하고, 돈으로 살 수 없는 지위 혜택을 얹는다.</p>
+  <table>
+    <tr><th style="width:16%">티어</th><th style="width:24%">승급 조건</th><th style="width:14%">추천 요율</th><th>혜택</th></tr>
+    <tr><td><b>🌹 ROSE</b></td><td class="l">프로필 심사 통과 즉시</td><td class="tstar">5%</td>
+      <td class="l">추천 코드 발급 · 친구 가입 축하금 1만원 · 신규 카드 알림</td></tr>
+    <tr class="hl"><td><b>👑 LADY</b></td><td class="l">활동 친구 3명 + 본인 평점 4.0↑</td><td class="tstar">8%</td>
+      <td class="l">월 스타일링 지원금 10만원 · 멤버스 파티 초대 · 리워드 주 단위 정산</td></tr>
+    <tr><td><b>💎 MADAM</b></td><td class="l">활동 친구 10명 또는 월 귀속매출 500만↑</td><td class="tstar">12%</td>
+      <td class="l">전담 매니저 · 신규 카드 우선 배정권 · 분기 VIP 트립 · 승급 세리머니(암웨이 핀 수여식 원리)</td></tr>
+  </table>
+  <div class="grid g2" style="margin-top:26px">
+    <div class="card"><h3>🔑 코드 발급·입력·귀속 규칙</h3>
+      <ul>
+        <li><b>발급 시점</b> — 여성: 심사 통과 즉시(활동 전부터 초대 가능, 바이낸스 방식) / 남성: 첫 결제 후(구매 고객만, 보상은 현금 아닌 카드 열람권 1장)</li>
+        <li><b>입력 방식</b> — 카톡 공유 딥링크로 자동 입력(마찰 0) + 가입 후 7일 내 소급 입력 허용(토스 방식)</li>
+        <li><b>귀속 기간</b> — 12개월 롤링, 친구가 활동 지속하면 자동 연장 (코인 거래소의 '평생 귀속'을 순화)</li>
+        <li><b>강등 규칙</b> — 3개월 무활동 시 1티어 강등 (암웨이 직급 유지 조건 원리)</li>
+      </ul></div>
+    <div class="card"><h3>⚠️ 2단계(친구의 친구) 보상은?</h3>
+      <p><b>현금은 1단계(직접 추천)까지만.</b> 친구의 친구에게서 발생한 매출에 현금을 지급하는 순간 3단계 판매조직 + 후원수당 구조가 되어
+      <b>다단계판매업 등록 대상</b>이 된다(미등록 시 7년 이하 징역/2억 이하 벌금 — 법률 섹션).<br><br>
+      대신 2단계는 <b>비금전 혜택</b>으로 설계: 내 친구가 데려온 친구가 활동하면 → 파티 초대권, 카드 우선 배정, MADAM 승급 가점. 구조의 재미는 유지하고 리스크는 제거.</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ MLM 스터디 ═══════════ -->
+<section id="mlm" class="mlm"><div class="wrap reveal">
+  <div class="kicker">07 — MLM &amp; REFERRAL STUDY</div>
+  <h2>암웨이·뉴스킨·코인·증권이<br><em>30년간 검증한 것들.</em></h2>
+  <div class="grid g2">
+    <div class="card"><span class="src">1959~ · 방판 MLM</span><h3>암웨이 — 직급 게이미피케이션</h3>
+      <ul>
+        <li>실적 포인트(PV/BV) 기반 <b>3%→21% 누진 보너스</b>: 팔수록 요율 자체가 오른다</li>
+        <li><b>핀(Pin) 레벨</b>: 실버→골드→플래티넘→에메랄드(21% 그룹 3개)→다이아몬드(21% 그룹 6개) — 직급이 정체성이 됨</li>
+        <li><b>브레이크어웨이</b>: 내가 키운 하위 그룹이 21%에 도달해 독립하면, 그 그룹 매출의 일정률을 '육성 보너스'로 계속 수령</li>
+        <li>직급 <b>유지 조건</b>(월 실적)이 있어 이탈 방지 + 세리머니·트립 같은 지위 보상</li>
+      </ul></div>
+    <div class="card"><span class="src">화장품 MLM</span><h3>뉴스킨 — 세대(Generation) 보너스</h3>
+      <ul>
+        <li>브레이크어웨이 변형: 독립한 리더 계보를 '세대'로 세어 <b>세대별 약 5%씩, 상위 직급일수록 더 깊은 세대까지</b> 수령</li>
+        <li>핵심 통찰: <b>'내가 키운 리더가 또 리더를 키우게' 만드는 인센티브</b> — 우리의 MADAM 승급 가점이 이 원리의 합법 순화판</li>
+        <li>리더 요건에 소비자 판매 실적을 섞어 '가입비 돌려막기'와 구분</li>
+      </ul></div>
+    <div class="card"><span class="src">크립토 거래소</span><h3>바이낸스 — 킥백 분배</h3>
+      <ul>
+        <li>추천인은 피추천인 거래 수수료의 <b>기본 20%, 500 BNB 보유 시 40%</b>를 평생 수령 — 보유 자산으로 요율 차등</li>
+        <li><b>킥백</b>: 추천인이 자기 커미션의 최대 절반을 피추천인 '수수료 할인'으로 양보 가능 → <b>둘 다 이득이라 코드 입력이 당연해짐</b></li>
+        <li>1회성 보상이 아니라 <b>거래마다 반복 발생</b> — 추천인이 피추천인의 활성 유지까지 챙기게 됨</li>
+      </ul></div>
+    <div class="card"><span class="src">국내 핀테크·증권</span><h3>토스·증권사 — 양방향 즉시 보상</h3>
+      <ul>
+        <li>친구 초대 시 <b>추천인·피추천인 모두</b>에게 현금/주식 즉시 지급 — 국내 유저에게 가장 익숙한 문법</li>
+        <li>딥링크 클릭 → 코드 자동 입력 → 가입 즉시 보상 확인: <b>입력 마찰 제로 + 보상 즉시성</b></li>
+        <li>지급 한도·월 캡으로 어뷰징 통제 (우리도 월 추천 보상 캡 필요)</li>
+      </ul></div>
+  </div>
+  <h2 style="font-size:20px;margin-top:48px">→ 에스코트가 훔쳐올 6가지 원리</h2>
+  <div>
+    <span class="pill">① 양방향 보상 — 초대받는 쪽도 3만원 (바이낸스 킥백)</span>
+    <span class="pill">② 반복 귀속 — 친구가 매칭될 때마다 평생/12개월 요율 지급 (코인)</span>
+    <span class="pill">③ 직급 게이미피케이션 — ROSE/LADY/MADAM + 유지 조건 (암웨이 핀)</span>
+    <span class="pill">④ 리더 육성 보상 — 내 친구가 MADAM 되면 가점+세리머니 (뉴스킨 세대)</span>
+    <span class="pill">⑤ 지위 보상 — 파티·트립·우선 배정, 돈으로 못 사는 것 (다이아몬드 트립)</span>
+    <span class="pill">⑥ 마찰 제로 — 딥링크 자동 입력 + 7일 소급 (토스)</span>
+  </div>
+</div></section>
+
+<!-- ═══════════ 법률 ═══════════ -->
+<section id="legal" class="red-sec"><div class="wrap reveal">
+  <div class="kicker">08 — LEGAL REDLINES</div>
+  <h2>이 사업의 성패는 <em>지급 명목 설계</em>에 달렸다.</h2>
+  <p class="lead">구조 자체는 만들 수 있다. 단, 아래 네 가지 선을 넘는 순간 형사 리스크가 된다. 설계 단계에서 자문 변호사 검토 1회는 필수.</p>
+  <div class="grid g2">
+    <div class="card"><span class="risk-lv risk-hi">HIGH — 형사</span><h3>① 미등록 다단계 (방문판매법)</h3>
+      <p>보상이 <b>3단계 이상 조직</b>으로 흐르면 다단계판매업 등록 대상 — 미등록 영업은 <b>7년 이하 징역 또는 2억원 이하 벌금</b>.
+      등록하더라도 후원수당 총액은 매출액의 <b>35% 상한</b>.<br><br>
+      → <b>우리의 답</b>: 현금 보상은 직접 추천 1단계로 제한. 2단계는 비금전 혜택만. 전체 보상 지급률도 35% 이내로 설계해 등록 전환 시에도 안전.</p></div>
+    <div class="card"><span class="risk-lv risk-hi">HIGH — 형사</span><h3>② '만남의 대가' 프레임 (성매매알선 오해)</h3>
+      <p>"만나주면 돈을 준다"로 읽히는 순간 유사 조건만남 플랫폼으로 해석될 리스크. 지원금 명목(헤어·메이크업비)을 만남 완료에 연동하면 더 위험.<br><br>
+      → <b>우리의 답</b>: 지급 트리거를 만남이 아닌 <b>데이터 행위</b>에 건다 — 프로필 유지 리워드, <b>상호 후기 작성 리워드</b>, 평점 우수 리워드, 추천 리워드. 금액 상한(건당 10만)과 월 캡. 오프라인 만남 강제 조항 금지, 여성의 거절권 100% 보장 문구 명시.</p></div>
+    <div class="card"><span class="risk-lv risk-md">MID — 행정</span><h3>③ 업종 신고·표시의무</h3>
+      <p>결혼 목적 중개를 표방하면 결혼중개업법상 국내결혼중개업 신고 대상. 데이팅(교제) 서비스로 포지셔닝하면 통신판매업 신고 + 전자상거래법 표시의무 + 환불 규정 정비로 충분.
+      35만원 결제 상품은 <b>환불 조건(상대 거절 시 100%)을 약관에 명문화</b>.</p></div>
+    <div class="card"><span class="risk-lv risk-md">MID — 세무·개인정보</span><h3>④ 리워드 지급의 세무 처리</h3>
+      <p>여성 리워드·추천 수수료는 <b>사업소득 3.3% 원천징수</b>(연 단위 기타소득 처리 검토), 지급명세서 제출. 연락처·생년월일·사주 정보는 민감정보급 —
+      개인정보 처리방침 + 수집·이용 동의 설계, 연락처 전달은 <b>상호 명시 동의 로그</b>를 남긴다. '에스코트' 명칭은 유흥 연상으로 카카오 채널·PG 심사 리젝 리스크 → 대외 브랜드는 별도 검토.</p></div>
+  </div>
+</div></section>
+
+<!-- ═══════════ 로드맵 ═══════════ -->
+<section><div class="wrap reveal">
+  <div class="kicker">09 — ROADMAP &amp; KPI</div>
+  <h2>홍연 인프라 위에서 <em>4주면</em> MVP가 선다.</h2>
+  <div class="road">
+    <div class="step"><div class="n">W1</div><div><b>PHASE 0 — 컨시어지 MVP (개발 없이 검증)</b><p>기존 홍연 폼 + 카카오 채널 + 수동 카드 발송(친구톡). 여성 시드 30명(지인 추천), 남성 50명. 카드 오픈율·수락율·결제 전환 측정. <em>이 단계에서 35만원이 실제로 결제되는지가 전부다.</em></p></div></div>
+    <div class="step"><div class="n">W2-4</div><div><b>PHASE 1 — 정산·레퍼럴 자동화</b><p>추천 코드 발급/귀속 로직, 여성 수익 대시보드(웹), 알림톡 자동 발송, PG 연동(카드 열람권·교환권). 티어는 수동 운영.</p></div></div>
+    <div class="step"><div class="n">M2-3</div><div><b>PHASE 2 — 티어·파티·확장</b><p>티어 자동 승급, 멤버스 파티 1회 개최(1%CLUB 이벤트 대행 역량 재활용), 마담 10명 확보. 월 매칭 50건 = 월매출 약 2,750만원 라인 달성.</p></div></div>
+  </div>
+  <div class="stats" style="margin-top:40px">
+    <div class="s"><b>30명</b><span>여성 시드 (지인 추천 2슬롯)</span></div>
+    <div class="s"><b>15%+</b><span>카드 수락→결제 전환 목표</span></div>
+    <div class="s"><b>40%+</b><span>여성 신규 가입 중 추천 경유 비율</span></div>
+    <div class="s"><b>50건/월</b><span>3개월 차 매칭 목표 (≈월 2,750만)</span></div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    ESCORT (워킹네임) — 1%CLUB 신규 사업 기획 · 본 문서는 내부 검토용입니다<br><br>
+    <a href="../">📱 데모 앱</a> &nbsp;·&nbsp; <a href="#top">↑ 맨 위로</a>
+  </div>
+</footer>
+
+<script>
+// reveal
+const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("in")}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+// journey tabs
+function jt(btn,id){
+  btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("on"));btn.classList.add("on");
+  document.querySelectorAll(".journey").forEach(j=>j.classList.remove("on"));
+  document.getElementById(id).classList.add("on");
+}
+// simulator
+function fmt(n){ if(n>=1e8) return (n/1e8).toFixed(1)+"억"; return Math.round(n/1e4).toLocaleString()+"만"; }
+function sim(){
+  const n = +document.getElementById("sim-range").value;
+  document.getElementById("sim-n").textContent = n+"건";
+  const rev = n*350000 + n*4*50000;          // 교환권 + 카드열람 4장
+  const women = n*65000 + n*4*5000;          // 매칭·후기 평균 6.5만 + 프로필 리워드 5천/열람
+  const ref = rev*0.08;                       // 추천 평균 8%
+  const net = rev - women - ref;
+  document.getElementById("s-rev").textContent   = "₩"+fmt(rev);
+  document.getElementById("s-women").textContent = "₩"+fmt(women);
+  document.getElementById("s-ref").textContent   = "₩"+fmt(ref);
+  document.getElementById("s-net").textContent   = "₩"+fmt(net);
+  const pc=v=>Math.max(6,(v/rev*100));
+  document.getElementById("b-co").style.width = pc(net)+"%";
+  document.getElementById("b-wo").style.width = pc(women)+"%";
+  document.getElementById("b-rf").style.width = pc(ref)+"%";
+  document.getElementById("s-rate").textContent = "총 보상 지급률 "+((women+ref)/rev*100).toFixed(1)+"% (법정 후원수당 상한 35% 이내)";
+}
+sim();
+// coin flow
+function playFlow(){
+  const f=document.getElementById("flow1");
+  f.classList.remove("playing"); void f.offsetWidth; f.classList.add("playing");
+}
+</script>
+</body>
+</html>

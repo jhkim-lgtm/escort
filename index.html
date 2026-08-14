@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ESCORT — 사주가 맺어주는 검증된 만남 (데모)</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#0b0b10; --panel:#14141c; --panel2:#1b1b26; --line:#26263a;
+  --gold:#d4b36a; --gold-soft:#e8d5a3; --red:#e0485e; --red-soft:#ff7d8f;
+  --txt:#f2eee6; --dim:#9b96a8; --ok:#5fd39a;
+  --grad-gold:linear-gradient(135deg,#d4b36a,#f0dfae 55%,#b8944a);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060609;font-family:"Pretendard Variable",Pretendard,-apple-system,sans-serif;color:var(--txt);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 12px}
+.frame{width:100%;max-width:420px;background:var(--bg);border:1px solid var(--line);border-radius:32px;
+  overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.7);position:relative;min-height:820px;display:flex;flex-direction:column}
+/* ── header ── */
+header{padding:22px 22px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.logo{font-size:20px;letter-spacing:.42em;font-weight:800;background:var(--grad-gold);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.logo small{display:block;letter-spacing:.18em;font-size:9px;color:var(--dim);-webkit-text-fill-color:var(--dim);margin-top:3px;font-weight:500}
+.mode-toggle{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:3px;gap:2px}
+.mode-toggle button{border:0;background:transparent;color:var(--dim);font-family:inherit;font-size:11.5px;font-weight:700;
+  padding:7px 12px;border-radius:99px;cursor:pointer;transition:.2s}
+.mode-toggle button.on{background:var(--grad-gold);color:#171208}
+.demo-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;
+  font-size:9px;font-weight:800;letter-spacing:.2em;padding:3px 14px;border-radius:0 0 8px 8px;z-index:50}
+main{flex:1;overflow-y:auto;padding:18px 18px 96px;scrollbar-width:none}
+main::-webkit-scrollbar{display:none}
+.screen{display:none;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* ── 공통 카드 ── */
+.notice{background:linear-gradient(135deg,rgba(212,179,106,.12),rgba(212,179,106,.04));border:1px solid rgba(212,179,106,.35);
+  border-radius:16px;padding:14px 16px;font-size:12.5px;line-height:1.65;color:var(--gold-soft);margin-bottom:16px}
+.notice b{color:var(--gold)}
+h2.sec{font-size:13px;letter-spacing:.14em;color:var(--dim);font-weight:700;margin:22px 2px 10px}
+/* ── 프로필 카드 ── */
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:18px;position:relative}
+.pcard .photo{height:300px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+.pcard .photo .initial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:88px;font-weight:200;color:rgba(255,255,255,.28);font-family:Didot,"Times New Roman",serif;letter-spacing:.05em}
+.pcard .photo .veil{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(11,11,16,.94))}
+.pcard .photo .meta{position:relative;padding:18px 20px 14px;width:100%}
+.pcard .name{font-size:21px;font-weight:800}
+.pcard .name span{font-size:13px;color:var(--dim);font-weight:500;margin-left:8px}
+.badges{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.badge{font-size:10px;font-weight:700;padding:4px 9px;border-radius:99px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);color:#dcd6e8}
+.badge.gold{background:rgba(212,179,106,.15);border-color:rgba(212,179,106,.5);color:var(--gold)}
+.pcard .body{padding:16px 20px 18px}
+.saju-row{display:flex;align-items:center;gap:14px;background:var(--panel2);border-radius:16px;padding:14px 16px}
+.saju-score{font-size:34px;font-weight:900;color:var(--red-soft);font-variant-numeric:tabular-nums;line-height:1}
+.saju-score small{font-size:12px;font-weight:600;color:var(--dim)}
+.saju-desc{font-size:12px;line-height:1.6;color:#c9c3d6}
+.saju-desc b{color:var(--gold)}
+.timer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;background:rgba(224,72,94,.08);
+  border:1px solid rgba(224,72,94,.3);border-radius:14px;padding:11px 16px}
+.timer .lab{font-size:11.5px;color:var(--red-soft);font-weight:700}
+.timer .clock{font-size:17px;font-weight:800;color:var(--red-soft);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.actions{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;border:0;border-radius:16px;padding:15px 0;font-family:inherit;font-size:14.5px;font-weight:800;cursor:pointer;transition:.15s}
+.btn:active{transform:scale(.97)}
+.btn.pass{background:var(--panel2);color:var(--dim);border:1px solid var(--line)}
+.btn.accept{background:var(--grad-gold);color:#171208}
+.btn.wide{width:100%;flex:none}
+.free-pill{position:absolute;top:14px;left:14px;z-index:5;background:rgba(11,11,16,.75);backdrop-filter:blur(6px);
+  border:1px solid rgba(212,179,106,.5);color:var(--gold);font-size:11px;font-weight:800;padding:6px 12px;border-radius:99px}
+/* ── 가격 안내 ── */
+.price-list{background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.price-list .row{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--line);font-size:13px}
+.price-list .row:last-child{border-bottom:0}
+.price-list .row .l b{display:block;font-size:13.5px}
+.price-list .row .l small{color:var(--dim);font-size:11px}
+.price-list .row .r{font-weight:800;color:var(--gold);font-size:14px;white-space:nowrap}
+/* ── 여성: 수익 대시보드 ── */
+.earn-hero{background:linear-gradient(150deg,#1c1626,#141019 60%);border:1px solid rgba(212,179,106,.3);
+  border-radius:24px;padding:22px;margin-bottom:16px;position:relative;overflow:hidden}
+.earn-hero:before{content:"";position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,179,106,.22),transparent 70%)}
+.earn-hero .lab{font-size:12px;color:var(--dim);font-weight:600}
+.earn-hero .amt{font-size:38px;font-weight:900;margin:6px 0 2px;background:var(--grad-gold);
+  -webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.earn-hero .sub{font-size:11.5px;color:var(--ok);font-weight:700}
+.earn-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px}
+.earn-grid .cell{background:rgba(255,255,255,.05);border-radius:14px;padding:12px 10px;text-align:center}
+.earn-grid .cell b{display:block;font-size:15px;font-variant-numeric:tabular-nums}
+.earn-grid .cell span{font-size:10px;color:var(--dim)}
+/* 티어 */
+.tier-box{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px}
+.tier-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tier-now{font-size:16px;font-weight:900;color:var(--gold)}
+.tier-next{font-size:11px;color:var(--dim)}
+.tier-bar{height:10px;background:var(--panel2);border-radius:99px;overflow:hidden;position:relative}
+.tier-bar i{display:block;height:100%;width:64%;background:var(--grad-gold);border-radius:99px}
+.tier-steps{display:flex;justify-content:space-between;margin-top:10px;font-size:10.5px;color:var(--dim);font-weight:700}
+.tier-steps .cur{color:var(--gold)}
+.tier-perk{margin-top:12px;font-size:11.5px;line-height:1.7;color:#c9c3d6}
+.tier-perk b{color:var(--gold)}
+/* 코드 */
+.code-box{background:var(--panel);border:1px dashed rgba(212,179,106,.6);border-radius:20px;padding:18px;text-align:center;margin-bottom:16px}
+.code-box .lab{font-size:11px;color:var(--dim);letter-spacing:.1em;font-weight:700}
+.code-box .code{font-size:26px;font-weight:900;letter-spacing:.22em;color:var(--gold);margin:8px 0 12px;font-variant-numeric:tabular-nums}
+.code-actions{display:flex;gap:8px}
+.code-actions .btn{padding:12px 0;font-size:13px}
+.btn.kakao{background:#fee500;color:#191600}
+/* 친구 리스트 */
+.friend{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:13px 15px;margin-bottom:8px}
+.friend .avt{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:15px;color:#171208;flex-shrink:0}
+.friend .info{flex:1}
+.friend .info b{font-size:13.5px;display:block}
+.friend .info small{font-size:10.5px;color:var(--dim)}
+.friend .val{text-align:right}
+.friend .val b{font-size:13.5px;color:var(--ok);display:block;font-variant-numeric:tabular-nums}
+.friend .val small{font-size:10px;color:var(--dim)}
+/* 내역 */
+.ledger .friend .val b{color:var(--gold)}
+/* ── 탭바 ── */
+nav{position:absolute;bottom:0;left:0;right:0;background:rgba(11,11,16,.92);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);display:flex;padding:10px 8px calc(14px + env(safe-area-inset-bottom))}
+nav button{flex:1;background:none;border:0;color:var(--dim);font-family:inherit;font-size:10px;font-weight:700;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+nav button .ic{font-size:19px;filter:grayscale(1);opacity:.55;transition:.2s}
+nav button.on{color:var(--gold)}
+nav button.on .ic{filter:none;opacity:1}
+/* ── 모달 ── */
+.modal-bg{position:absolute;inset:0;background:rgba(4,4,8,.78);backdrop-filter:blur(4px);z-index:100;
+  display:none;align-items:flex-end}
+.modal-bg.on{display:flex}
+.modal{background:var(--panel);border-radius:28px 28px 0 0;width:100%;padding:26px 22px 34px;animation:up .3s ease}
+@keyframes up{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+.modal h3{font-size:18px;font-weight:900;margin-bottom:6px}
+.modal p.d{font-size:12.5px;color:var(--dim);line-height:1.7;margin-bottom:16px}
+.pay-row{display:flex;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--line);font-size:13px}
+.pay-row b{color:var(--gold);font-size:15px}
+.modal .btn{margin-top:18px}
+.modal .cancel{display:block;width:100%;text-align:center;margin-top:12px;color:var(--dim);font-size:12px;
+  background:none;border:0;cursor:pointer;font-family:inherit}
+.success{ text-align:center;padding:10px 0}
+.success .big{font-size:52px;margin-bottom:12px}
+.success h3{margin-bottom:8px}
+footer.note{padding:14px 22px;font-size:9.5px;color:#57536a;line-height:1.6;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="demo-badge">DEMO</div>
+  <header>
+    <div class="logo">ESCORT<small>사주가 맺어주는 검증된 만남</small></div>
+    <div class="mode-toggle">
+      <button id="tg-m" class="on" onclick="setMode('m')">남성 회원</button>
+      <button id="tg-f" onclick="setMode('f')">여성 회원</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ════════ 남성 모드: 카드 ════════ -->
+    <section class="screen on" id="scr-cards">
+      <div class="notice">🎁 <b>웰컴 카드 <span id="free-left">2</span>장 무료</b> — 채널 추가 기념으로 오늘의 인연 카드를 무료로 열람하세요. 카드는 <b>48시간</b> 안에 수락/거절을 결정해야 합니다.</div>
+      <div id="card-stack"></div>
+      <h2 class="sec">이용 요금</h2>
+      <div class="price-list">
+        <div class="row"><div class="l"><b>웰컴 카드 3장</b><small>가입 + 채널 추가 시</small></div><div class="r">무료</div></div>
+        <div class="row"><div class="l"><b>카드 열람권</b><small>새 인연 카드 1장 오픈</small></div><div class="r">50,000원</div></div>
+        <div class="row"><div class="l"><b>연락처 교환권</b><small>상호 수락 시 매니저가 연결</small></div><div class="r">350,000원</div></div>
+        <div class="row"><div class="l"><b>PASS 멤버십</b><small>월 카드 8장 + 우선 배정</small></div><div class="r">290,000원/월</div></div>
+      </div>
+    </section>
+
+    <!-- ════════ 여성 모드: 수익 ════════ -->
+    <section class="screen" id="scr-earn">
+      <div class="earn-hero">
+        <div class="lab">8월 누적 수익</div>
+        <div class="amt">₩427,000</div>
+        <div class="sub">▲ 지난달 대비 +180,000</div>
+        <div class="earn-grid">
+          <div class="cell"><b>₩260,000</b><span>매칭 리워드</span></div>
+          <div class="cell"><b>₩90,000</b><span>후기 리워드</span></div>
+          <div class="cell"><b>₩77,000</b><span>추천 리워드</span></div>
+        </div>
+      </div>
+
+      <div class="tier-box">
+        <div class="tier-head">
+          <div class="tier-now">👑 LADY <span style="font-size:11px;color:var(--dim);font-weight:600">추천 요율 8%</span></div>
+          <div class="tier-next">MADAM까지 활동 친구 4명</div>
+        </div>
+        <div class="tier-bar"><i></i></div>
+        <div class="tier-steps"><span>🌹 ROSE 5%</span><span class="cur">👑 LADY 8%</span><span>💎 MADAM 12%</span></div>
+        <div class="tier-perk">현재 혜택: 친구 매출의 <b>8%</b> 평생 리워드 · 월 스타일링 지원금 <b>10만원</b> · 멤버스 파티 초대<br>
+        MADAM 승급 시: 요율 <b>12%</b> · 전담 매니저 · 신규 카드 <b>우선 배정권</b> · 분기 VIP 트립</div>
+      </div>
+
+      <div class="code-box">
+        <div class="lab">MY INVITATION CODE</div>
+        <div class="code" id="mycode">ESC-YOONA</div>
+        <div class="code-actions">
+          <button class="btn pass" onclick="copyCode()">코드 복사</button>
+          <button class="btn kakao" onclick="toast('카카오톡 공유 (데모) — 실서비스에선 딥링크로 코드 자동 입력')">카카오톡으로 초대</button>
+        </div>
+      </div>
+
+      <h2 class="sec">내 친구들 (3명 활동 중)</h2>
+      <div class="friend"><div class="avt" style="background:#e8b4c8">서</div>
+        <div class="info"><b>서○아</b><small>7월 가입 · 이번 달 매칭 1건</small></div>
+        <div class="val"><b>+₩28,000</b><small>이번 달 리워드</small></div></div>
+      <div class="friend"><div class="avt" style="background:#b4cbe8">민</div>
+        <div class="info"><b>민○</b><small>6월 가입 · 카드 인기 상위 10%</small></div>
+        <div class="val"><b>+₩42,000</b><small>이번 달 리워드</small></div></div>
+      <div class="friend"><div class="avt" style="background:#cfe8b4">하</div>
+        <div class="info"><b>하○은</b><small>8월 가입 · 심사 통과</small></div>
+        <div class="val"><b>+₩10,000</b><small>가입 축하금</small></div></div>
+
+      <h2 class="sec">수익 내역</h2>
+      <div class="ledger">
+        <div class="friend"><div class="avt" style="background:#d4b36a">💐</div>
+          <div class="info"><b>매칭 리워드</b><small>8/9 · 연락처 교환 성사</small></div>
+          <div class="val"><b>+₩50,000</b><small>지급 완료</small></div></div>
+        <div class="friend"><div class="avt" style="background:#d4b36a">⭐</div>
+          <div class="info"><b>후기 리워드 (평점 4.8)</b><small>8/11 · 상호 후기 완료</small></div>
+          <div class="val"><b>+₩50,000</b><small>지급 완료</small></div></div>
+        <div class="friend"><div class="avt" style="background:#d4b36a">🔗</div>
+          <div class="info"><b>추천 리워드 8%</b><small>8/12 · 민○ 연락처 교환 발생</small></div>
+          <div class="val"><b>+₩28,000</b><small>지급 완료</small></div></div>
+      </div>
+    </section>
+  </main>
+
+  <nav id="nav-m">
+    <button class="on" onclick="tab(this,'scr-cards')"><span class="ic">🧧</span>오늘의 카드</button>
+    <button onclick="toast('데모에서는 오늘의 카드만 제공됩니다')"><span class="ic">💬</span>매니저</button>
+    <button onclick="toast('데모에서는 오늘의 카드만 제공됩니다')"><span class="ic">👤</span>MY</button>
+  </nav>
+  <nav id="nav-f" style="display:none">
+    <button class="on"><span class="ic">💰</span>수익</button>
+    <button onclick="copyCode()"><span class="ic">🔗</span>초대 코드</button>
+    <button onclick="toast('데모에서는 수익 탭만 제공됩니다')"><span class="ic">👤</span>MY</button>
+  </nav>
+
+  <!-- 결제 모달 -->
+  <div class="modal-bg" id="modal-pay">
+    <div class="modal">
+      <h3>연락처 교환 신청</h3>
+      <p class="d">상대방도 수락하면 매니저가 <b>카카오톡</b>으로 서로의 연락처를 전달합니다. 상대가 거절하면 <b>전액 환불</b>됩니다.</p>
+      <div class="pay-row"><span>연락처 교환권</span><b>350,000원</b></div>
+      <div class="pay-row"><span>상호 수락 실패 시</span><span style="color:var(--ok);font-weight:700">100% 자동 환불</span></div>
+      <button class="btn accept wide" onclick="paid()">350,000원 결제하기</button>
+      <button class="cancel" onclick="closeModal()">다음에 할게요</button>
+    </div>
+  </div>
+
+  <!-- 결제 완료 모달 -->
+  <div class="modal-bg" id="modal-done">
+    <div class="modal success">
+      <div class="big">🧧</div>
+      <h3>신청 완료</h3>
+      <p class="d">상대방에게 수락 요청을 보냈습니다.<br>상호 수락되면 <b>24시간 이내</b> 매니저가 카카오톡으로<br>연락처와 첫 만남 가이드를 전달드립니다.</p>
+      <button class="btn accept wide" onclick="closeModal()">확인</button>
+    </div>
+  </div>
+
+  <!-- 카드 열람권 모달 -->
+  <div class="modal-bg" id="modal-open">
+    <div class="modal">
+      <h3>새 카드 열람</h3>
+      <p class="d">무료 웰컴 카드를 모두 사용했습니다. 새 인연 카드는 열람권으로 오픈할 수 있어요.</p>
+      <div class="pay-row"><span>카드 열람권 1장</span><b>50,000원</b></div>
+      <button class="btn accept wide" onclick="openPaidCard()">50,000원 결제하고 열람</button>
+      <button class="cancel" onclick="closeModal()">다음에 할게요</button>
+    </div>
+  </div>
+
+  <div id="toast" style="position:absolute;bottom:96px;left:50%;transform:translateX(-50%);background:#2a2a3c;color:#fff;
+    font-size:12px;font-weight:600;padding:11px 18px;border-radius:99px;opacity:0;transition:.3s;z-index:200;white-space:nowrap;max-width:90%;text-align:center;pointer-events:none">복사됨</div>
+
+  <footer class="note">본 페이지는 기획 검증용 데모입니다. 결제·매칭·수익 데이터는 모두 가상이며 실제 거래가 발생하지 않습니다. ESCORT는 워킹네임입니다.</footer>
+</div>
+
+<script>
+// ── 가상 카드 데이터 ──
+const CARDS = [
+  {ini:"Y", name:"윤○영", age:29, job:"승무원", area:"서울 반포", score:92,
+   desc:"당신의 <b>일간 무토(戊土)</b>와 상대의 <b>계수(癸水)</b>가 무계합 — 명리에서 가장 강한 부부 합입니다. 배우자궁 상충 없음.",
+   badges:["지인 추천 2인","신원 인증","라이프스타일 검증"], grad:"linear-gradient(160deg,#3a2a3e,#1c1524)", h:46},
+  {ini:"S", name:"서○진", age:27, job:"피부과 코디네이터", area:"서울 청담", score:88,
+   desc:"화(火) 기운이 강한 당신에게 상대의 <b>목(木) 일간은 목생화 상생</b>. 올해 대운에서 인연운이 겹치는 해입니다.",
+   badges:["지인 추천 2인","신원 인증"], grad:"linear-gradient(160deg,#2a3340,#141b24)", h:41},
+  {ini:"J", name:"정○원", age:31, job:"갤러리스트", area:"서울 한남", score:85,
+   desc:"두 사람 모두 <b>도화(桃花)</b>가 배우자궁에 자리해 첫 만남의 호감도가 높은 조합. 일지 육합으로 갈등 시 회복이 빠릅니다.",
+   badges:["지인 추천 2인","신원 인증","VIP 파티 참석"], grad:"linear-gradient(160deg,#3e3226,#241c12)", h:38}
+];
+let freeLeft = 2, idx = 0;
+
+function renderCard(){
+  const c = CARDS[idx % CARDS.length];
+  const deadline = Date.now() + c.h*3600*1000;
+  document.getElementById("card-stack").innerHTML = `
+  <div class="pcard">
+    ${freeLeft>0?`<div class="free-pill">무료 카드 ${freeLeft}장 남음</div>`:`<div class="free-pill" style="color:#fff;border-color:#555">열람권 사용</div>`}
+    <div class="photo" style="background:${c.grad}">
+      <div class="initial">${c.ini}</div><div class="veil"></div>
+      <div class="meta">
+        <div class="name">${c.name} <span>${c.age}세 · ${c.job} · ${c.area}</span></div>
+        <div class="badges">${c.badges.map(b=>`<span class="badge gold">✓ ${b}</span>`).join("")}</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="saju-row">
+        <div class="saju-score">${c.score}<small>점</small></div>
+        <div class="saju-desc">${c.desc}</div>
+      </div>
+      <div class="timer"><span class="lab">⏳ 결정까지 남은 시간</span><span class="clock" id="clock">--:--:--</span></div>
+      <div class="actions">
+        <button class="btn pass" onclick="nextCard(false)">거절</button>
+        <button class="btn accept" onclick="show('modal-pay')">수락 · 연락처 교환</button>
+      </div>
+    </div>
+  </div>`;
+  clearInterval(window._tick);
+  window._tick = setInterval(()=>{
+    let s = Math.max(0, Math.floor((deadline-Date.now())/1000));
+    const h=String(Math.floor(s/3600)).padStart(2,"0"),m=String(Math.floor(s%3600/60)).padStart(2,"0"),ss=String(s%60).padStart(2,"0");
+    const el=document.getElementById("clock"); if(el) el.textContent=`${h}:${m}:${ss}`;
+  },1000);
+}
+function nextCard(paid){
+  idx++;
+  if(!paid && freeLeft>0){ freeLeft--; document.getElementById("free-left").textContent=freeLeft; renderCard(); toast("다음 카드를 무료로 열었습니다"); }
+  else if(!paid){ show("modal-open"); }
+  else { renderCard(); }
+}
+function openPaidCard(){ closeModal(); renderCard(); toast("열람권 결제 완료 (데모) — 새 카드가 도착했습니다"); }
+function paid(){ closeModal(); show("modal-done"); }
+function show(id){ document.getElementById(id).classList.add("on"); }
+function closeModal(){ document.querySelectorAll(".modal-bg").forEach(m=>m.classList.remove("on")); }
+function setMode(m){
+  document.getElementById("tg-m").classList.toggle("on", m==="m");
+  document.getElementById("tg-f").classList.toggle("on", m==="f");
+  document.getElementById("scr-cards").classList.toggle("on", m==="m");
+  document.getElementById("scr-earn").classList.toggle("on", m==="f");
+  document.getElementById("nav-m").style.display = m==="m" ? "flex":"none";
+  document.getElementById("nav-f").style.display = m==="f" ? "flex":"none";
+  document.getElementById("main").scrollTop = 0;
+}
+function tab(btn, id){ btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("on")); btn.classList.add("on"); }
+function copyCode(){
+  navigator.clipboard?.writeText("ESC-YOONA").catch(()=>{});
+  toast("초대 코드 복사됨 — 친구가 가입 시 입력하면 둘 다 리워드");
+}
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.style.opacity=1;
+  clearTimeout(window._tt); window._tt=setTimeout(()=>t.style.opacity=0, 2600);
+}
+renderCard();
+</script>
+</body>
+</html>
