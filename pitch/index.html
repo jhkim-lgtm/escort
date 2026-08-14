@@ -224,7 +224,7 @@ footer a{color:var(--gold);text-decoration:none;font-weight:700}
   <p class="lead">가정: 연락처 교환 1건 = 35만원, 매칭 1건당 카드 열람 4장(5만원×4) 동반 발생, 여성 리워드 평균 6.5만원, 추천인 평균 요율 8%.</p>
   <div class="sim">
     <div class="row"><label>월 연락처 교환(매칭) 건수</label><span class="nval" id="sim-n">50건</span></div>
-    <input type="range" id="sim-range" min="10" max="500" step="10" value="50" oninput="sim()">
+    <input type="range" id="sim-range" min="0" max="100" step="0.5" value="15" oninput="sim()">
     <div class="sim-grid">
       <div class="sim-cell c1"><b id="s-rev">—</b><span>월 총매출</span></div>
       <div class="sim-cell c2"><b id="s-women">—</b><span>여성 리워드 지급</span></div>
@@ -412,10 +412,22 @@ function jt(btn,id){
   document.getElementById(id).classList.add("on");
 }
 // simulator
-function fmt(n){ if(n>=1e8) return (n/1e8).toFixed(1)+"억"; return Math.round(n/1e4).toLocaleString()+"만"; }
+function fmt(n){
+  if(n>=1e12) return (n/1e12).toFixed(2)+"조";
+  if(n>=1e8) return (n/1e8) >= 100 ? Math.round(n/1e8).toLocaleString()+"억" : (n/1e8).toFixed(1)+"억";
+  return Math.round(n/1e4).toLocaleString()+"만";
+}
+// 로그 스케일: 슬라이더 0~100 → 10건 ~ 500,000건
+function sliderToN(v){
+  const min=Math.log(10), max=Math.log(500000);
+  let n = Math.exp(min + (max-min)*v/100);
+  if(n<100) n=Math.round(n/10)*10; else if(n<1000) n=Math.round(n/50)*50;
+  else if(n<10000) n=Math.round(n/500)*500; else n=Math.round(n/5000)*5000;
+  return Math.max(10, n);
+}
 function sim(){
-  const n = +document.getElementById("sim-range").value;
-  document.getElementById("sim-n").textContent = n+"건";
+  const n = sliderToN(+document.getElementById("sim-range").value);
+  document.getElementById("sim-n").textContent = n.toLocaleString()+"건";
   const rev = n*350000 + n*4*50000;          // 교환권 + 카드열람 4장
   const women = n*65000 + n*4*5000;          // 매칭·후기 평균 6.5만 + 프로필 리워드 5천/열람
   const ref = rev*0.08;                       // 추천 평균 8%

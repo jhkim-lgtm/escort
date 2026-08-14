@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ESCORT.EXE — DOS EDITION (데모)</title>
+<style>
+@font-face{font-family:'DungGeunMo';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/DungGeunMo.woff') format('woff');font-display:swap}
+:root{--grn:#33ff66;--grn-dim:#1d9c44;--amber:#ffb000;--bg:#000;--red:#ff5555;--cyan:#55ffff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050505;color:var(--grn);font-family:'DungGeunMo','Menlo','Courier New',monospace;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px 8px;font-size:15px;line-height:1.55}
+.crt{width:100%;max-width:560px;background:var(--bg);border:3px solid #222;border-radius:14px;
+  box-shadow:0 0 60px rgba(51,255,102,.15),inset 0 0 80px rgba(0,0,0,.8);padding:22px 20px 26px;position:relative;overflow:hidden}
+.crt:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:9;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+.crt:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:10;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.45));}
+pre{font-family:inherit;white-space:pre-wrap;word-break:keep-all}
+.dim{color:var(--grn-dim)}
+.amber{color:var(--amber)}
+.red{color:var(--red)}
+.cyan{color:var(--cyan)}
+.inv{background:var(--grn);color:#000;padding:0 4px}
+a{color:var(--cyan);text-decoration:none}
+hr{border:0;border-top:1px dashed var(--grn-dim);margin:12px 0}
+.blink{animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.btn{display:inline-block;background:none;border:1px solid var(--grn);color:var(--grn);
+  font-family:inherit;font-size:15px;padding:8px 16px;cursor:pointer;margin:4px 6px 0 0;transition:.08s}
+.btn:hover,.btn:focus{background:var(--grn);color:#000;outline:none}
+.btn.warn{border-color:var(--amber);color:var(--amber)}
+.btn.warn:hover{background:var(--amber);color:#000}
+.btn.err{border-color:var(--red);color:var(--red)}
+.btn.err:hover{background:var(--red);color:#000}
+.bar{letter-spacing:1px}
+table.led{width:100%;border-collapse:collapse;margin:6px 0}
+table.led td{padding:2px 4px;font-size:14px}
+table.led td.r{text-align:right;color:var(--amber)}
+.screen{display:none}.screen.on{display:block}
+.modal{display:none;position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.82);padding:40px 18px;align-items:flex-start;justify-content:center}
+.modal.on{display:flex}
+.dlg{background:#000;border:2px double var(--grn);max-width:420px;width:100%;padding:18px;box-shadow:0 0 40px rgba(51,255,102,.25)}
+.dlg.amberbox{border-color:var(--amber)}
+.tab{cursor:pointer}
+@media(max-width:480px){body{font-size:13.5px}.btn{font-size:13.5px}}
+</style>
+</head>
+<body>
+<div class="crt">
+<pre class="dim">Microsoft(R) MS-DOS(R) Version 6.22   (C) 1994-2026
+C:\&gt;cd ESCORT
+C:\ESCORT&gt;<span style="color:var(--grn)">ESCORT.EXE /demo</span></pre>
+<pre>
+╔══════════════════════════════════════╗
+║  <span class="amber">E S C O R T . E X E</span>  v1.0  [DEMO]  ║
+║  사주가 맺어주는 검증된 만남          ║
+╚══════════════════════════════════════╝</pre>
+<pre><span class="tab" onclick="setMode('m')" id="tab-m"><span class="inv"> F1 </span> 남성회원</span>   <span class="tab" onclick="setMode('f')" id="tab-f"><span class="dim">[F2]</span> <span class="dim">여성회원</span></span>   <span class="dim">|  <a href="../">GUI버전</a></span></pre>
+<hr>
+
+<!-- ══════ 남성 모드 ══════ -->
+<div class="screen on" id="scr-m">
+<pre class="dim">> LOAD CARD... OK
+> 무료 웰컴카드 잔여: <span class="amber" id="free-left">2</span>/3   (채널 추가 기념)</pre>
+<div id="card"></div>
+<hr>
+<pre class="dim">─── PRICE.TXT ────────────────────────
+ 웰컴 카드 3장 ............... <span class="amber">무료</span>
+ 카드 열람권 1장 ......... <span class="amber">50,000원</span>
+ 연락처 교환권 .......... <span class="amber">350,000원</span>
+ PASS 멤버십(월8장) ..... <span class="amber">290,000원/월</span>
+ * 상대 거절시 교환권 100% 자동환불</pre>
+</div>
+
+<!-- ══════ 여성 모드 ══════ -->
+<div class="screen" id="scr-f">
+<pre>┌─ EARNINGS.DAT ── 8월 누적 수익 ─────┐
+│                                      │
+│        <span class="amber" style="font-size:26px">₩ 427,000</span>              │
+│        <span class="dim">▲ 전월대비 +180,000</span>          │
+└──────────────────────────────────────┘</pre>
+<table class="led">
+<tr><td>매칭 리워드</td><td class="r">260,000</td></tr>
+<tr><td>후기 리워드</td><td class="r">90,000</td></tr>
+<tr><td>추천 리워드 (요율 8%)</td><td class="r">77,000</td></tr>
+</table>
+<hr>
+<pre>─── TIER.SYS ─────────────────────────
+ 현재 등급: <span class="amber">[LADY]</span> 요율 8%
+ <span class="dim">ROSE 5% ──</span><span class="amber">██████████████░░░░░░</span><span class="dim">── MADAM 12%</span>
+ 승급까지: 활동 친구 <span class="amber">4명</span> 남음
+ 혜택: 스타일링비 10만/월 + 멤버스파티</pre>
+<hr>
+<pre>─── REFERRAL.BAT ─────────────────────
+ 내 추천코드: <span class="inv" id="mycode"> ESC-YOONA </span>
+ 친구가 결제할 때마다 <span class="amber">8% 평생 지급</span></pre>
+<button class="btn" onclick="copyCode()">[C] 코드 복사</button>
+<button class="btn warn" onclick="say('카카오톡 공유 (데모) — 실서비스는 딥링크 자동입력')">[K] 카톡 초대</button>
+<hr>
+<pre class="dim">─── FRIENDS.LOG ──────────────────────</pre>
+<table class="led">
+<tr><td>서○아 <span class="dim">(7월 가입·매칭 1건)</span></td><td class="r">+28,000</td></tr>
+<tr><td>민○ <span class="dim">(6월 가입·인기 상위10%)</span></td><td class="r">+42,000</td></tr>
+<tr><td>하○은 <span class="dim">(8월 가입·심사 통과)</span></td><td class="r">+10,000</td></tr>
+</table>
+</div>
+
+<hr>
+<pre class="dim" style="font-size:12px">본 화면은 기획 검증용 데모. 모든 데이터는 가상이며 실제 거래 없음. ESCORT는 워킹네임.
+C:\ESCORT&gt;<span class="blink">█</span></pre>
+
+<!-- 결제 다이얼로그 -->
+<div class="modal" id="m-pay"><div class="dlg">
+<pre>╔═ PAYMENT.EXE ═══════════════╗
+  연락처 교환 신청
+
+  금액 ......... <span class="amber">350,000원</span>
+  상대 거절시 .. <span class="cyan">100% 환불</span>
+
+  상호 수락시 매니저가 카톡으로
+  연락처를 전달합니다.
+╚═════════════════════════════╝</pre>
+<button class="btn warn" onclick="paid()">[Y] 결제 실행</button>
+<button class="btn" onclick="closeM()">[N] 취소</button>
+</div></div>
+
+<!-- 완료 -->
+<div class="modal" id="m-done"><div class="dlg amberbox">
+<pre class="amber">*** 신청 완료 ***
+
+상대방에게 수락 요청 전송됨.
+상호 수락시 24시간 이내 매니저가
+카카오톡으로 연락처 + 첫 만남
+가이드를 전달합니다.</pre>
+<button class="btn warn" onclick="closeM()">[ENTER] 확인</button>
+</div></div>
+
+<!-- 열람권 -->
+<div class="modal" id="m-open"><div class="dlg">
+<pre><span class="red">! 무료 웰컴카드 소진</span>
+
+새 인연 카드 열람권
+금액 ......... <span class="amber">50,000원</span></pre>
+<button class="btn warn" onclick="openPaid()">[Y] 결제하고 열람</button>
+<button class="btn" onclick="closeM()">[N] 취소</button>
+</div></div>
+</div>
+
+<script>
+const CARDS=[
+ {name:"윤○영",age:29,job:"승무원",area:"서울 반포",score:92,h:46,
+  desc:"일간 무토(戊土)×계수(癸水) 무계합 — 명리 최강 부부합. 배우자궁 상충 없음.",
+  badges:"지인추천2인 · 신원인증 · 라이프스타일검증"},
+ {name:"서○진",age:27,job:"피부과 코디네이터",area:"서울 청담",score:88,h:41,
+  desc:"목생화(木生火) 상생 — 올해 대운 인연운 겹침.",badges:"지인추천2인 · 신원인증"},
+ {name:"정○원",age:31,job:"갤러리스트",area:"서울 한남",score:85,h:38,
+  desc:"양측 배우자궁 도화(桃花) — 첫 만남 호감도 高. 일지 육합.",badges:"지인추천2인 · 신원인증 · VIP파티참석"}];
+let free=2,idx=0,deadline=0;
+function bar(n){const f=Math.round(n/5);return "█".repeat(f)+"░".repeat(20-f);}
+function render(){
+ const c=CARDS[idx%CARDS.length];deadline=Date.now()+c.h*3600e3;
+ document.getElementById("card").innerHTML=
+`<pre>┌─ CARD_${String(idx+1).padStart(3,"0")}.DAT ──────────────────┐
+│ <span class="amber">${c.name}</span>  ${c.age}세 · ${c.job}
+│ ${c.area}
+│ <span class="dim">검증: ${c.badges}</span>
+│
+│ 사주 궁합 <span class="amber">${c.score}점</span>
+│ <span class="bar amber">${bar(c.score)}</span>
+│ ${c.desc}
+│
+│ <span class="red">⏳ 결정 잔여시간: <span id="clock">--:--:--</span></span>
+└──────────────────────────────────────┘</pre>
+<button class="btn err" onclick="nextCard()">[N] 거절</button>
+<button class="btn warn" onclick="show('m-pay')">[Y] 수락 · 연락처 교환</button>`;
+ clearInterval(window._t);window._t=setInterval(()=>{
+  let s=Math.max(0,(deadline-Date.now())/1e3|0);
+  const el=document.getElementById("clock");
+  if(el)el.textContent=`${String(s/3600|0).padStart(2,"0")}:${String(s%3600/60|0).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+ },1000);}
+function nextCard(){idx++;
+ if(free>0){free--;document.getElementById("free-left").textContent=free;render();say("> 다음 카드를 무료로 열었습니다");}
+ else show("m-open");}
+function openPaid(){closeM();idx++;render();say("> 열람권 결제 완료(데모) — 새 카드 도착");}
+function paid(){closeM();show("m-done");}
+function show(id){document.getElementById(id).classList.add("on")}
+function closeM(){document.querySelectorAll(".modal").forEach(m=>m.classList.remove("on"))}
+function setMode(m){
+ document.getElementById("scr-m").classList.toggle("on",m==="m");
+ document.getElementById("scr-f").classList.toggle("on",m==="f");
+ document.getElementById("tab-m").innerHTML=m==="m"?'<span class="inv"> F1 </span> 남성회원':'<span class="dim">[F1]</span> <span class="dim">남성회원</span>';
+ document.getElementById("tab-f").innerHTML=m==="f"?'<span class="inv"> F2 </span> 여성회원':'<span class="dim">[F2]</span> <span class="dim">여성회원</span>';}
+function copyCode(){navigator.clipboard?.writeText("ESC-YOONA").catch(()=>{});say("> 코드 복사됨 — 친구 가입시 둘 다 리워드");}
+function say(t){
+ const p=document.createElement("pre");p.className="cyan";p.style.fontSize="13px";p.textContent=t;
+ document.querySelector(".crt").insertBefore(p,document.querySelector(".crt pre:last-of-type"));
+ setTimeout(()=>p.remove(),3000);}
+document.addEventListener("keydown",e=>{
+ const k=e.key.toLowerCase();
+ if(document.querySelector(".modal.on")){if(k==="n"||k==="escape")closeM();return;}
+ if(k==="f1"){e.preventDefault();setMode("m");} if(k==="f2"){e.preventDefault();setMode("f");}
+ if(document.getElementById("scr-m").classList.contains("on")){if(k==="y")show("m-pay");if(k==="n")nextCard();}});
+render();
+</script>
+</body>
+</html>
