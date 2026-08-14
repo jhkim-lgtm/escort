@@ -7,6 +7,7 @@
 <title>ESCORT — 운영 콘솔 (데모)</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="assets/app.css">
+<script src="assets/theme.js"></script>
 </head>
 <body>
 <div class="frame">
@@ -20,6 +21,12 @@
 </div>
 <script src="assets/store.js"></script>
 <script>
+/* OWNER 게이트 — 랜딩 OWNER ACCESS에서 인증(비번 bk) 필요 */
+if(localStorage.getItem("escort_owner") !== "1"){
+  const pw = prompt("OWNER ACCESS — 비밀번호를 입력하세요");
+  if(pw === "bk"){ localStorage.setItem("escort_owner","1"); }
+  else { alert("접근 권한이 없습니다"); location.href = "index.html"; }
+}
 const FNAMES = ["채원","지유","서윤","하린","유나","가은","다인","소율"];
 function render(){
   const s = load();

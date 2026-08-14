@@ -1,0 +1,38 @@
+/* 금송(金松) — 금병풍: 금비단 바탕 · 청송 인디고 */
+:root{
+  --black:#dcc590; --panel:#eadbb2; --panel2:#dfcc9c; --line:#c2a668;
+  --metal:#2b4a72; --metal-hi:#1c3455; --txt:#26313f; --dim:#8a7a52;
+  --ok:#3e6e50; --bad:#a8563e; --gold:#1c3455;
+}
+body{background:#b89e66}
+.frame{background:linear-gradient(160deg,#e4cf9c,#d2b87e 60%,#dcc590);
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 3px, rgba(138,110,50,.05) 3px 4px),
+    radial-gradient(180px 100px at 80% 10%, rgba(255,246,220,.5), transparent 70%),
+    radial-gradient(220px 120px at 15% 85%, rgba(255,246,220,.35), transparent 70%);
+  box-shadow:0 30px 80px rgba(90,70,30,.4)}
+.wordmark{background:linear-gradient(180deg,#2b4a72,#16263e);-webkit-background-clip:text;background-clip:text}
+.wordmark small{-webkit-text-fill-color:#8a7a52}
+header.app{border-bottom-color:#c2a668}
+.mcard-visual{background:linear-gradient(135deg,#2b4a72,#16263e 55%,#223a5c);border-color:#3c5c88}
+.mcard-visual .brand,.mcard-visual .holder b{color:#ecdfb8}
+.mcard-visual .num,.mcard-visual .since b{color:#a9bcd8}
+.mcard-visual .chip{background:linear-gradient(135deg,#ecdfb8,#c2a668)}
+.btn.metal{background:linear-gradient(180deg,#335682,#1c3455 70%,#16263e);color:#eadbb2}
+.btn:hover{border-color:#2b4a72;color:#1c3455}
+.photo{filter:sepia(.25) saturate(.8)}
+.photo .veil{background:linear-gradient(180deg,transparent 36%,rgba(22,38,62,.92))}
+.pill{background:rgba(234,219,178,.88);border-color:#a88c50;color:#1c3455}
+.notice{background:rgba(255,248,228,.55)}
+.saju{background:rgba(255,248,228,.5)}
+.saju .num,.stmt .amt,.codebox .cd{background:linear-gradient(180deg,#2b4a72,#16263e);-webkit-background-clip:text;background-clip:text}
+.list,.stmt,.codebox,.tier-cards .tc{background-color:rgba(255,248,228,.4)}
+.tc.rose{background:rgba(240,215,205,.5)}.tc.lady{background:rgba(230,222,190,.6)}.tc.madam{background:rgba(214,222,230,.5)}
+.tc.cur{border-color:#2b4a72}.tc.cur:after{background:#2b4a72}
+.tc.cur .rate{color:#1c3455}
+nav.tabbar{background:rgba(234,219,178,.95);border-top-color:#c2a668}
+.sheet{background:#eadbb2;border-top-color:#2b4a72}
+#toast{background:#1c3455;color:#eadbb2}
+.demo-tag{color:#a08a58}
+.spin{border-color:#c2a668;border-top-color:#1c3455}
+footer.note{color:#a08a58;border-top-color:#c2a668}

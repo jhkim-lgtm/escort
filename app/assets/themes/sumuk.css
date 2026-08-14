@@ -1,0 +1,32 @@
+/* 수묵(水墨) — 파도 담채: 한지 아이보리 · 먹 · 청자빛 세이지 */
+:root{
+  --black:#ece8dc; --panel:#f6f3ea; --panel2:#e4e0d2; --line:#d2cdbc;
+  --metal:#5c6b60; --metal-hi:#3c4a40; --txt:#2c2a24; --dim:#8f8a78;
+  --ok:#4a7c62; --bad:#a8563e; --gold:#8a7648;
+}
+body{background:#d8d3c6}
+.frame{background:var(--black);
+  background-image:
+    repeating-linear-gradient(2deg, transparent 0 26px, rgba(92,107,96,.06) 26px 27px, transparent 27px 54px),
+    repeating-linear-gradient(-1.5deg, transparent 0 34px, rgba(60,74,64,.05) 34px 35px, transparent 35px 70px);
+  box-shadow:0 30px 80px rgba(60,74,64,.25)}
+.wordmark{background:linear-gradient(180deg,#3c4a40,#2c2a24);-webkit-background-clip:text;background-clip:text}
+.wordmark small{-webkit-text-fill-color:var(--dim)}
+.mcard-visual{background:linear-gradient(135deg,#4a5850,#2e3832 55%,#3c4a40);border-color:#5c6b60}
+.mcard-visual .brand,.mcard-visual .holder b{color:#eef0e8}
+.mcard-visual .num,.mcard-visual .since b{color:#b8c4ba}
+.mcard-visual .chip{background:linear-gradient(135deg,#eef0e8,#b8c4ba)}
+.btn.metal{background:linear-gradient(180deg,#5c6b60,#3c4a40 70%,#2e3832);color:#f6f3ea}
+.photo{filter:grayscale(.35) sepia(.12) contrast(1.02)}
+.photo .veil{background:linear-gradient(180deg,transparent 36%,rgba(46,56,50,.92))}
+.pill{background:rgba(246,243,234,.85);border-color:#c2bda8;color:#3c4a40}
+.saju .num,.stmt .amt,.codebox .cd{background:linear-gradient(180deg,#4a5850,#2c2a24);-webkit-background-clip:text;background-clip:text}
+.tc.rose{background:#efe6e2}.tc.lady{background:#e9e8da}.tc.madam{background:#e2e5df}
+.tc.cur{border-color:#5c6b60}.tc.cur:after{background:#5c6b60}
+.tc.cur .rate{color:#3c4a40}
+nav.tabbar{background:rgba(246,243,234,.95)}
+.sheet{border-top-color:#5c6b60}
+#toast{background:#3c4a40;color:#f6f3ea}
+.demo-tag{color:#a8a390}
+.spin{border-color:#d2cdbc;border-top-color:#3c4a40}
+footer.note{color:#a8a390}

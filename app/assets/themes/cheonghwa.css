@@ -1,0 +1,39 @@
+/* 청화(靑華) — 청화백자: 백자 위의 코발트 · 청해파문 */
+:root{
+  --black:#f4f1e8; --panel:#fdfbf4; --panel2:#edf0f4; --line:#d7d9d2;
+  --metal:#2a56a8; --metal-hi:#1e4390; --txt:#1c2a4a; --dim:#7a86a0;
+  --ok:#2e7d5b; --bad:#b04a3a; --gold:#2a56a8;
+}
+body{background:#dfe4e0}
+.frame{background:var(--black);
+  background-image:
+    radial-gradient(circle at 50% 0, transparent 56%, rgba(42,86,168,.10) 57% 60%, transparent 61%),
+    radial-gradient(circle at 0% 50%, transparent 56%, rgba(42,86,168,.07) 57% 60%, transparent 61%);
+  background-size:84px 42px, 84px 42px;
+  background-position:0 0, 42px 21px;
+  box-shadow:0 30px 80px rgba(30,60,110,.28)}
+.wordmark{background:linear-gradient(180deg,#2a56a8,#16336e);-webkit-background-clip:text;background-clip:text}
+.wordmark small{-webkit-text-fill-color:var(--dim)}
+.mcard-visual{background:linear-gradient(135deg,#22488f,#132a58 55%,#1c3c7c);border-color:#3a62b0}
+.mcard-visual:before{opacity:.5;background:
+  radial-gradient(circle at 50% 0, transparent 55%, rgba(255,255,255,.09) 56% 60%, transparent 61%);
+  background-size:56px 28px}
+.mcard-visual .brand,.mcard-visual .holder b{color:#e8eef8}
+.mcard-visual .num,.mcard-visual .since b{color:#a9c0e8}
+.mcard-visual .chip{background:linear-gradient(135deg,#e8eef8,#a9c0e8)}
+.btn.metal{background:linear-gradient(180deg,#2f5cb4,#1e4390 70%,#16336e);color:#fdfbf4}
+.btn:hover{border-color:var(--metal);color:var(--metal-hi)}
+.photo{filter:none}
+.photo .veil{background:linear-gradient(180deg,transparent 36%,rgba(19,42,88,.94))}
+.pill{background:rgba(253,251,244,.85);border-color:#b9c6de;color:#1e4390}
+.saju .num,.stmt .amt,.codebox .cd{background:linear-gradient(180deg,#2a56a8,#16336e);-webkit-background-clip:text;background-clip:text}
+.tc.cur{border-color:#2a56a8}
+.tc.cur:after{background:#2a56a8}
+.tc.cur .rate{color:#1e4390}
+.tc.rose{background:#f3e9ea}.tc.lady{background:#e9eef6}.tc.madam{background:#eceff2}
+nav.tabbar{background:rgba(253,251,244,.95)}
+.sheet{border-top-color:#2a56a8}
+#toast{background:#1e4390;color:#fdfbf4}
+.demo-tag{color:#a0aabf}
+.spin{border-color:#d7d9d2;border-top-color:#2a56a8}
+footer.note{color:#9aa4b8}

@@ -1,0 +1,37 @@
+/* 서운(瑞雲) — 단청 구름: 먹빛 위의 진사홍 · 뇌록 · 금니 */
+:root{
+  --black:#141517; --panel:#1c1e20; --panel2:#232628; --line:#33363a;
+  --metal:#c9a24b; --metal-hi:#e8cf8e; --txt:#efe9dc; --dim:#8f9490;
+  --ok:#6fae8e; --bad:#c05242; --gold:#e8cf8e;
+}
+body{background:#0b0c0d}
+.frame{background:var(--black);
+  background-image:
+    radial-gradient(220px 130px at 88% 4%, rgba(176,58,46,.20), transparent 70%),
+    radial-gradient(200px 120px at 8% 12%, rgba(61,107,98,.22), transparent 70%),
+    radial-gradient(180px 110px at 75% 34%, rgba(201,162,75,.10), transparent 70%),
+    radial-gradient(240px 140px at 12% 88%, rgba(61,107,98,.16), transparent 70%),
+    radial-gradient(200px 120px at 90% 78%, rgba(176,58,46,.13), transparent 70%);
+  box-shadow:0 30px 90px rgba(176,58,46,.14),0 30px 80px rgba(0,0,0,.85)}
+.wordmark{background:linear-gradient(180deg,#e8cf8e,#c9a24b);-webkit-background-clip:text;background-clip:text}
+.mcard-visual{background:linear-gradient(135deg,#2a1a17,#141517 45%,#17211e 75%,#101112);border-color:#4a3a2a;
+  box-shadow:inset 0 1px 0 rgba(232,207,142,.12),0 14px 34px rgba(0,0,0,.7)}
+.mcard-visual .brand,.mcard-visual .holder b{color:#e8cf8e}
+.mcard-visual .num,.mcard-visual .since b{color:#c9a24b}
+.mcard-visual .chip{background:linear-gradient(135deg,#e8cf8e,#a5833a)}
+.btn.metal{background:linear-gradient(180deg,#c9634a,#b04a3a 70%,#8f3a2e);color:#f6ede0}
+.btn:hover{border-color:#c9a24b;color:#e8cf8e}
+.photo{filter:saturate(.8) contrast(1.04)}
+.photo .veil{background:linear-gradient(180deg,transparent 36%,rgba(20,21,23,.95))}
+.pill{color:#e8cf8e;border-color:#4a3a2a}
+.saju{background:linear-gradient(135deg,#20282a,#1c1e20)}
+.saju .num,.stmt .amt,.codebox .cd{background:linear-gradient(180deg,#e8cf8e,#c9a24b);-webkit-background-clip:text;background-clip:text}
+.tc.rose{background:linear-gradient(160deg,#2e1c1a,#1a1214)}
+.tc.lady{background:linear-gradient(160deg,#2a2418,#181510)}
+.tc.madam{background:linear-gradient(160deg,#1c2624,#111716)}
+.tc.cur{border-color:#c9a24b}.tc.cur:after{background:#b04a3a}
+.tc.cur .rate{color:#e8cf8e}
+.sheet{border-top-color:#b04a3a}
+#toast{background:#e8cf8e;color:#1a1408}
+.spin{border-color:#33363a;border-top-color:#e8cf8e}
+.status.ok{border-color:rgba(111,174,142,.5)}

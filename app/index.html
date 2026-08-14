@@ -7,6 +7,7 @@
 <title>ESCORT — Members Only (데모 앱)</title>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="assets/app.css">
+<script src="assets/theme.js"></script>
 <style>
 .hero{padding:36px 24px 26px;text-align:center;border-bottom:1px solid var(--line)}
 .hero h1{font-size:24px;font-weight:900;line-height:1.45;margin:18px 0 10px}
@@ -67,6 +68,35 @@
       </a>
       <div class="notice" id="ref-notice" style="display:none">🔗 <b id="ref-code-txt"></b> 님의 초대로 오셨네요 — 가입 시 축하금 <b>30,000원</b>이 지급됩니다.</div>
       <div class="notice" id="resume-notice" style="display:none"></div>
+
+      <h2 class="sec">Themes — 동양 무드 5선</h2>
+      <div class="list" style="margin-bottom:14px">
+        <div class="lrow" style="flex-wrap:wrap;gap:8px;justify-content:flex-start">
+          <a class="hbtn" href="?theme=default">⬛ 블랙카드</a>
+          <a class="hbtn" href="?theme=cheonghwa">🏺 청화</a>
+          <a class="hbtn" href="?theme=heukgeum">🪭 흑금</a>
+          <a class="hbtn" href="?theme=dancheong">🌤️ 서운</a>
+          <a class="hbtn" href="?theme=sumuk">🌊 수묵</a>
+          <a class="hbtn" href="?theme=geumsong">🌲 금송</a>
+        </div>
+      </div>
+
+      <!-- OWNER ACCESS (BK 전용) -->
+      <div class="codebox" style="margin-top:8px">
+        <span class="kicker">Owner Access</span>
+        <div id="owner-locked">
+          <div class="field" style="margin:14px 0 10px"><input id="owner-pw" type="password" placeholder="비밀번호" style="text-align:center;letter-spacing:.3em"
+            onkeydown="if(event.key==='Enter')ownerLogin()"></div>
+          <button class="btn metal wide sm" onclick="ownerLogin()">Unlock Console</button>
+        </div>
+        <div id="owner-open" style="display:none">
+          <p style="margin:12px 0 14px;font-size:11px;color:var(--ok);font-weight:800">✓ Owner 인증됨</p>
+          <div class="btnrow">
+            <a class="btn metal sm" href="admin.html">운영 콘솔 열기</a>
+            <button class="btn sm" onclick="ownerLogout()">잠금</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
   <footer class="note">기획 검증용 데모 — 결제·매칭·수익은 모두 가상입니다. ESCORT는 워킹네임.
@@ -86,6 +116,20 @@ if(s0.user){
   const home = s0.user.role==="m" ? "cards.html" : "earnings.html";
   n.innerHTML = `이미 <b>${s0.user.name}</b> 님으로 가입돼 있습니다 — <a href="${home}" style="color:var(--metal-hi);font-weight:800">내 홈으로 이동 →</a>`;
 }
+/* OWNER ACCESS */
+function refreshOwner(){
+  const on = localStorage.getItem("escort_owner")==="1";
+  document.getElementById("owner-locked").style.display = on ? "none":"block";
+  document.getElementById("owner-open").style.display = on ? "block":"none";
+}
+function ownerLogin(){
+  if(document.getElementById("owner-pw").value === "bk"){
+    localStorage.setItem("escort_owner","1"); refreshOwner(); toast("Owner 인증 완료");
+  } else { toast("비밀번호가 올바르지 않습니다"); }
+  document.getElementById("owner-pw").value = "";
+}
+function ownerLogout(){ localStorage.removeItem("escort_owner"); refreshOwner(); toast("콘솔이 잠겼습니다"); }
+refreshOwner();
 </script>
 </body>
 </html>
